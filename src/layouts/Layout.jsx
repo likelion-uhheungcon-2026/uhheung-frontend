@@ -6,7 +6,7 @@ function Layout() {
       <main
         className="
           w-full
-          max-w-[393px]
+          max-w-[25.125rem]
           min-h-screen
           bg-[#141414]
           border-x
