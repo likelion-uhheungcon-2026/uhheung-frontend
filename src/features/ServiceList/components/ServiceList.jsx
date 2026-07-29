@@ -1,6 +1,6 @@
 import ServiceListItem from "./ServiceListItem";
 
-export default function ServiceList() {
+export default function ServiceList({ booths }) {
   return (
     <div
       className="
@@ -12,14 +12,9 @@ export default function ServiceList() {
         mb-[1.56rem]
       "
     >
-      <ServiceListItem />
-      <ServiceListItem />
-      <ServiceListItem />
-      <ServiceListItem />
-      <ServiceListItem />
-      <ServiceListItem />
-      <ServiceListItem />
-      <ServiceListItem />
+      {booths.map((booth) => (
+        <ServiceListItem key={booth.id} booth={booth} />
+      ))}
     </div>
   );
 }
