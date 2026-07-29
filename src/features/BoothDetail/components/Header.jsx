@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Header({ booth }) {
   return (
     <div className="relative flex justify-between items-center w-full">
@@ -7,9 +9,12 @@ export default function Header({ booth }) {
         {booth.name}
       </div>
 
-      <div className="text-[0.75rem] font-extralight text-[#FF6000]">
+      <Link
+        to="/servicelist"
+        className="text-[0.75rem] font-extralight text-[#FF6000]"
+      >
         출품작 목록 →
-      </div>
+      </Link>
     </div>
   );
 }

@@ -4,6 +4,7 @@ export const booths = [
   {
     id: 1,
     name: "TravelMate",
+    team: "트래블",
     serviceimage: image,
     servicelink: "https://travelmate.vercel.app",
     projectlink: "https://github.com/uhheungcon/travelmate",
@@ -37,6 +38,7 @@ export const booths = [
   {
     id: 2,
     name: "StudyFlow",
+    team: "공부하자",
     serviceimage: image,
     servicelink: "https://studyflow.vercel.app",
     projectlink: "https://github.com/uhheungcon/studyflow",
@@ -68,6 +70,7 @@ export const booths = [
   {
     id: 3,
     name: "PetCare",
+    team: "멍멍냥냥",
     serviceimage: image,
     servicelink: "https://petcare.vercel.app",
     projectlink: "https://github.com/uhheungcon/petcare",
@@ -100,6 +103,7 @@ export const booths = [
   {
     id: 4,
     name: "EcoMarket",
+    team: "친환경",
     serviceimage: image,
     servicelink: "https://ecomarket.vercel.app",
     projectlink: "https://github.com/uhheungcon/ecomarket",
@@ -132,6 +136,7 @@ export const booths = [
   {
     id: 5,
     name: "FitLog",
+    team: "살빼기",
     serviceimage: image,
     servicelink: "https://fitlog.vercel.app",
     projectlink: "https://github.com/uhheungcon/fitlog",
