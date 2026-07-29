@@ -28,6 +28,50 @@ export default function ServiceListItem({ booth }) {
         "
       />
 
+      {/* 상단 태그 영역 */}
+      <div
+        className="
+          absolute
+          top-[1.1rem]
+          left-[0.75rem]
+          flex
+          gap-[0.25rem]
+        "
+      >
+        <div
+          className="
+            w-[2.25rem]
+            h-[1.5rem]
+            rounded-[0.3125rem]
+            bg-[rgba(0,0,0,0.8)]
+            flex
+            justify-center
+            items-center
+            text-[0.75rem]
+            text-[#FF6000]
+          "
+        >
+          여행
+        </div>
+
+        <div
+          className="
+            w-[2.25rem]
+            h-[1.5rem]
+            rounded-[0.3125rem]
+            bg-[rgba(0,0,0,0.8)]
+            flex
+            justify-center
+            items-center
+            text-[0.75rem]
+            text-white
+          "
+        >
+          AI
+        </div>
+      </div>
+
+      {/* 글자 영역 */}
       <div
         className="
           absolute
@@ -48,7 +92,7 @@ export default function ServiceListItem({ booth }) {
 
         {/* 한줄소개 */}
         <div className="text-[0.6875rem] font-medium mt-[0.25rem]">
-          {booth.maincontent}
+          "{booth.maincontent}"
         </div>
       </div>
     </div>
