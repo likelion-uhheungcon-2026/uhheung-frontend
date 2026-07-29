@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { booths } from "../data/booths";
+
 import HomeBtn from "../features/Home/components/HomeBtn";
 import BoothMap from "../features/Home/components/BoothMap";
 import TimeTable from "../features/Home/components/TimeTable";
@@ -8,18 +10,32 @@ import RecommendedBooth from "../features/Recommend/components/RecommendedBooth"
 export default function HomePage() {
   const [tab, setTab] = useState("booth");
   const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [selectedBoothId, setSelectedBoothId] = useState(1);
+
+  const selectedBooth = booths.find((booth) => booth.id === selectedBoothId);
 
   return (
     <div className="relative min-h-screen overflow-hidden">
       <HomeBtn tab={tab} setTab={setTab} />
 
       <div className="h-[22rem] bg-[#141414]">
-        {tab === "booth" ? <BoothMap /> : <TimeTable />}
+        {tab === "booth" ? (
+          <BoothMap
+            setSelectedBoothId={setSelectedBoothId}
+            setIsDetailOpen={setIsDetailOpen}
+          />
+        ) : (
+          <TimeTable />
+        )}
       </div>
 
       <div>
         {tab === "booth" ? (
-          <BoothDetail isOpen={isDetailOpen} setIsOpen={setIsDetailOpen} />
+          <BoothDetail
+            booth={selectedBooth}
+            isOpen={isDetailOpen}
+            setIsOpen={setIsDetailOpen}
+          />
         ) : (
           <RecommendedBooth isOpen={isDetailOpen} setIsOpen={setIsDetailOpen} />
         )}

@@ -1,11 +1,16 @@
+import { booths } from "../../../data/booths";
 import Booth from "./Booth";
 
-export default function BoothMap() {
+export default function BoothMap({ setSelectedBoothId }) {
   return (
     <div className="text-white">
-      <Booth />
-      <Booth />
-      <Booth />
+      {booths.map((booth) => (
+        <Booth
+          key={booth.id}
+          booth={booth}
+          setSelectedBoothId={setSelectedBoothId}
+        />
+      ))}
     </div>
   );
 }
