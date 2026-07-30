@@ -13,6 +13,7 @@ export default function SerchTab({ searchValue, setSearchValue }) {
           gap-[0.44rem]
           justify-start
           items-center
+          mb-[0.56rem]
           w-[17.5rem]
           h-[2.5rem]
           bg-[#050505]
@@ -40,20 +41,6 @@ export default function SerchTab({ searchValue, setSearchValue }) {
 
         <img src={menu} className="cursor-pointer w-[1.5rem] h-[1.5rem]" />
       </div>
-
-      {/* 아래쪽 그라데이션 */}
-      <div
-        className="
-          absolute
-          top-full
-          left-0
-          w-full
-          z-100
-          h-[2.5rem]
-          pointer-events-none
-          bg-[linear-gradient(180deg,#141414_0%,rgba(20,20,20,0)_100%)]
-        "
-      />
     </div>
   );
 }

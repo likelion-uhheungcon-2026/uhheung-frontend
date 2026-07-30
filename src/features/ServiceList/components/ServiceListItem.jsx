@@ -3,8 +3,9 @@ export default function ServiceListItem({ booth }) {
     <div
       className="
         relative
-        w-[11rem]
-        h-[13.25rem]
+        w-full
+        max-w-[11rem]
+        aspect-[11/13.25]
         rounded-[0.625rem]
         overflow-hidden
       "

@@ -8,7 +8,7 @@ export default function ServiceList({ booths }) {
         grid-cols-2
         gap-x-[8px]
         gap-y-[0.2rem]
-        mt-[1.56rem]
+        mt-[1rem]
         mb-[1.56rem]
       "
     >
