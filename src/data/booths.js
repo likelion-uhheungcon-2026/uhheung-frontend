@@ -3,8 +3,8 @@ import image from "../features/BoothDetail/assets/킽ㅣ.jpg";
 export const booths = [
   {
     id: 1,
-    name: "TravelMate",
-    team: "트래블",
+    name: "트래블",
+    team: "여행가자",
     serviceimage: image,
     servicelink: "https://travelmate.vercel.app",
     projectlink: "https://github.com/uhheungcon/travelmate",
@@ -69,7 +69,7 @@ export const booths = [
   },
   {
     id: 3,
-    name: "PetCare",
+    name: "펫케어",
     team: "멍멍냥냥",
     serviceimage: image,
     servicelink: "https://petcare.vercel.app",
@@ -165,4 +165,39 @@ export const booths = [
     retrospect:
       "FitLog 프로젝트를 개발하면서 건강 관리 서비스는 기능 자체보다 사용자가 꾸준히 사용할 수 있도록 만드는 경험 설계가 중요하다는 것을 배웠습니다. 운동 기록과 식단 관리 기능을 구현하면서 사용자가 입력하는 데이터를 어떻게 효율적으로 관리하고 의미 있는 정보로 보여줄 수 있을지 고민했습니다. 운동 통계와 목표 달성률 기능을 개발하는 과정에서 데이터를 시각적으로 표현하는 방법과 사용자에게 동기를 제공하는 UI 설계의 중요성을 경험했습니다. 또한 사용자 피드백을 반영하여 불편한 부분을 개선하는 반복적인 개발 과정을 통해 실제 서비스 개선 방식에 대해 배울 수 있었습니다. 이번 프로젝트를 통해 완성된 기능을 만드는 것보다 사용자의 문제를 해결하고 지속적으로 발전시키는 과정이 서비스 개발에서 더욱 중요하다는 것을 깨달았습니다. 앞으로도 기술 구현뿐만 아니라 사용자 경험을 함께 고려하는 개발자가 되고자 합니다.",
   },
+  ...Array.from({ length: 27 }, (_, index) => {
+    const id = index + 6;
+
+    return {
+      id,
+      name: `서비스${id}`,
+      team: `팀${id}`,
+      serviceimage: image,
+      servicelink: `https://service${id}.vercel.app`,
+      projectlink: `https://github.com/uhheungcon/service${id}`,
+      maincontent: `사용자의 문제를 해결하는 AI 기반 서비스${id}`,
+
+      content: `서비스${id}는 사용자의 불편함을 해결하기 위해 제작된 서비스입니다. 
+        다양한 기능을 통해 더 편리한 경험을 제공하는 것을 목표로 합니다.`,
+
+      function: [
+        "사용자 맞춤 기능 제공",
+        "데이터 관리 기능",
+        "편리한 UI 제공",
+        "서비스 분석 기능",
+        "알림 기능",
+        "커뮤니티 기능",
+      ],
+
+      techstack: [
+        "Frontend: React",
+        "Backend: NestJS",
+        "Database: MongoDB",
+        "Deployment: Vercel",
+      ],
+
+      retrospect:
+        "프로젝트를 진행하며 사용자 중심의 서비스 개발과 기능 설계의 중요성을 경험했습니다. 실제 사용자의 문제를 해결하는 방향으로 서비스를 개선하는 과정에서 많은 것을 배울 수 있었습니다.",
+    };
+  }),
 ];
