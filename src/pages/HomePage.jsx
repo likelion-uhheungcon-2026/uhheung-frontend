@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { booths } from "../data/booths";
 
 import HomeBtn from "../features/Home/components/HomeBtn";
@@ -8,9 +9,16 @@ import BoothDetail from "../features/BoothDetail/components/BoothDetail";
 import RecommendedBooth from "../features/Recommend/components/RecommendedBooth";
 
 export default function HomePage() {
+  const location = useLocation();
+
   const [tab, setTab] = useState("booth");
-  const [isDetailOpen, setIsDetailOpen] = useState(false);
-  const [selectedBoothId, setSelectedBoothId] = useState(1);
+  const [isDetailOpen, setIsDetailOpen] = useState(
+    Boolean(location.state?.boothId),
+  );
+
+  const [selectedBoothId, setSelectedBoothId] = useState(
+    location.state?.boothId ?? 1,
+  );
 
   const selectedBooth = booths.find((booth) => booth.id === selectedBoothId);
 
