@@ -50,7 +50,7 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
           overflow-y-auto
           scrollbar-hide
           overscroll-contain
-          mt-[1rem]
+          mt-[0.5rem]
         "
       >
         <MainCard booth={booth} />

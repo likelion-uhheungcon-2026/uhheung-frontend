@@ -39,7 +39,7 @@ export const booths = [
   {
     id: 2,
     name: "StudyFlow",
-    team: "공부하자",
+    team: "공부해",
     tag: "AAC",
     serviceimage: image,
     servicelink: "https://studyflow.vercel.app",
