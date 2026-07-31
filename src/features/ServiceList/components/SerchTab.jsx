@@ -1,24 +1,31 @@
+import { useState } from "react";
+
 import search from "../assets/search-icon.svg";
 import filter from "../assets/filter-icon.svg";
+import filterclick from "../assets/filter-icon-click.svg";
 import menu from "../assets/menu-icon.svg";
+import menuclick from "../assets/menu-icon-click.svg";
+import FilterBox from "./FilterBox";
 
 export default function SerchTab({ searchValue, setSearchValue }) {
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <div className="relative mt-[4.12rem]">
-      <div className="flex flex-row justify-between items-center px-[1.31rem]">
+      <div className="mb-[0.56rem] flex flex-row justify-between items-center px-[1.31rem]">
         <div
           className="
-          px-[0.58rem]
-          flex flex-row
-          gap-[0.44rem]
-          justify-start
-          items-center
-          mb-[0.56rem]
-          w-[17.5rem]
-          h-[2.5rem]
-          bg-[#050505]
-          rounded-[0.3125rem]
-        "
+            px-[0.58rem]
+            flex flex-row
+            gap-[0.44rem]
+            justify-start
+            items-center
+            w-[17.5rem]
+            h-[2.5rem]
+            bg-[#050505]
+            rounded-[0.3125rem]
+          "
         >
           <img src={search} className="w-[1rem] h-[1rem]" />
 
@@ -37,9 +44,67 @@ export default function SerchTab({ searchValue, setSearchValue }) {
           />
         </div>
 
-        <img src={filter} className="cursor-pointer w-[1.5rem] h-[1.5rem]" />
+        {/* 필터 아이콘 */}
+        <div
+          onClick={() => setIsFilterOpen((prev) => !prev)}
+          className="relative w-[1.5rem] h-[1.5rem] cursor-pointer"
+        >
+          {isFilterOpen && (
+            <div
+              className="
+                absolute
+                top-1/2
+                left-1/2
+                -translate-x-1/2
+                -translate-y-1/2
+                w-[2.5rem]
+                h-[2.5rem]
+                rounded-full
+                pointer-events-none
+              "
+              style={{
+                background:
+                  "radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.00) 100%)",
+              }}
+            />
+          )}
 
-        <img src={menu} className="cursor-pointer w-[1.5rem] h-[1.5rem]" />
+          <img
+            src={isFilterOpen ? filterclick : filter}
+            className="relative z-10 w-[1.5rem] h-[1.5rem]"
+          />
+        </div>
+
+        {/* 메뉴 아이콘 */}
+        <div
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+          className="relative w-[1.5rem] h-[1.5rem] cursor-pointer"
+        >
+          {isMenuOpen && (
+            <div
+              className="
+                absolute
+                top-1/2
+                left-1/2
+                -translate-x-1/2
+                -translate-y-1/2
+                w-[2.5rem]
+                h-[2.5rem]
+                rounded-full
+                pointer-events-none
+              "
+              style={{
+                background:
+                  "radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.00) 100%)",
+              }}
+            />
+          )}
+
+          <img
+            src={isMenuOpen ? menuclick : menu}
+            className="relative z-10 w-[1.5rem] h-[1.5rem]"
+          />
+        </div>
       </div>
     </div>
   );
