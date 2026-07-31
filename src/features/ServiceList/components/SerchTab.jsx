@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import search from "../assets/search-icon.svg";
 import filter from "../assets/filter-icon.svg";
@@ -9,13 +9,34 @@ import menuclick from "../assets/menu-icon-click.svg";
 import FilterBox from "./FilterBox";
 import MenuBox from "./MenuBox";
 
-export default function SerchTab({ searchValue, setSearchValue }) {
+export default function SerchTab({
+  searchValue,
+  setSearchValue,
+  selectedFilters,
+  setSelectedFilters,
+}) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // 선택 상태 유지
-  const [selectedFilters, setSelectedFilters] = useState([]);
   const [selectedMenu, setSelectedMenu] = useState(null);
+
+  const tabRef = useRef(null);
+
+  // 바깥 클릭 감지
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (tabRef.current && !tabRef.current.contains(e.target)) {
+        setIsFilterOpen(false);
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   const handleFilterClick = () => {
     setIsFilterOpen((prev) => !prev);
@@ -28,7 +49,7 @@ export default function SerchTab({ searchValue, setSearchValue }) {
   };
 
   return (
-    <div className="relative mt-[4.12rem] z-20">
+    <div ref={tabRef} className="relative mt-[4.12rem] z-20">
       <div className="mb-[0.56rem] flex justify-between items-center px-[1.31rem]">
         {/* 검색창 */}
         <div
