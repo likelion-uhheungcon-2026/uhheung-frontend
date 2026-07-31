@@ -5,22 +5,37 @@ import filter from "../assets/filter-icon.svg";
 import filterclick from "../assets/filter-icon-click.svg";
 import menu from "../assets/menu-icon.svg";
 import menuclick from "../assets/menu-icon-click.svg";
+
 import FilterBox from "./FilterBox";
+import MenuBox from "./MenuBox";
 
 export default function SerchTab({ searchValue, setSearchValue }) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // 선택 상태 유지
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedMenu, setSelectedMenu] = useState(null);
+
+  const handleFilterClick = () => {
+    setIsFilterOpen((prev) => !prev);
+    setIsMenuOpen(false);
+  };
+
+  const handleMenuClick = () => {
+    setIsMenuOpen((prev) => !prev);
+    setIsFilterOpen(false);
+  };
+
   return (
-    <div className="relative mt-[4.12rem]">
-      <div className="mb-[0.56rem] flex flex-row justify-between items-center px-[1.31rem]">
+    <div className="relative mt-[4.12rem] z-20">
+      <div className="mb-[0.56rem] flex justify-between items-center px-[1.31rem]">
+        {/* 검색창 */}
         <div
           className="
             px-[0.58rem]
-            flex flex-row
+            flex items-center
             gap-[0.44rem]
-            justify-start
-            items-center
             w-[17.5rem]
             h-[2.5rem]
             bg-[#050505]
@@ -44,9 +59,9 @@ export default function SerchTab({ searchValue, setSearchValue }) {
           />
         </div>
 
-        {/* 필터 아이콘 */}
+        {/* 필터 */}
         <div
-          onClick={() => setIsFilterOpen((prev) => !prev)}
+          onClick={handleFilterClick}
           className="relative w-[1.5rem] h-[1.5rem] cursor-pointer"
         >
           {isFilterOpen && (
@@ -55,16 +70,15 @@ export default function SerchTab({ searchValue, setSearchValue }) {
                 absolute
                 top-1/2
                 left-1/2
-                -translate-x-1/2
-                -translate-y-1/2
                 w-[2.5rem]
                 h-[2.5rem]
                 rounded-full
-                pointer-events-none
+                -translate-x-1/2
+                -translate-y-1/2
               "
               style={{
                 background:
-                  "radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.00) 100%)",
+                  "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,.2) 0%, rgba(255,255,255,.06) 50%, rgba(255,255,255,0) 100%)",
               }}
             />
           )}
@@ -75,9 +89,9 @@ export default function SerchTab({ searchValue, setSearchValue }) {
           />
         </div>
 
-        {/* 메뉴 아이콘 */}
+        {/* 메뉴 */}
         <div
-          onClick={() => setIsMenuOpen((prev) => !prev)}
+          onClick={handleMenuClick}
           className="relative w-[1.5rem] h-[1.5rem] cursor-pointer"
         >
           {isMenuOpen && (
@@ -86,16 +100,15 @@ export default function SerchTab({ searchValue, setSearchValue }) {
                 absolute
                 top-1/2
                 left-1/2
-                -translate-x-1/2
-                -translate-y-1/2
                 w-[2.5rem]
                 h-[2.5rem]
                 rounded-full
-                pointer-events-none
+                -translate-x-1/2
+                -translate-y-1/2
               "
               style={{
                 background:
-                  "radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.00) 100%)",
+                  "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,.2) 0%, rgba(255,255,255,.06) 50%, rgba(255,255,255,0) 100%)",
               }}
             />
           )}
@@ -106,6 +119,43 @@ export default function SerchTab({ searchValue, setSearchValue }) {
           />
         </div>
       </div>
+
+      {/* 필터 박스 */}
+      {isFilterOpen && (
+        <div
+          className="
+            absolute
+            left-[9.674rem]
+            top-full
+            w-full
+            px-[1.31rem]
+            mt-0
+            z-30
+          "
+        >
+          <FilterBox
+            selected={selectedFilters}
+            setSelected={setSelectedFilters}
+          />
+        </div>
+      )}
+
+      {/* 메뉴 박스 */}
+      {isMenuOpen && (
+        <div
+          className="
+            absolute
+            left-[8.174rem]
+            top-full
+            w-full
+            px-[1.31rem]
+            mt-0
+            z-30
+          "
+        >
+          <MenuBox selected={selectedMenu} setSelected={setSelectedMenu} />
+        </div>
+      )}
     </div>
   );
 }
