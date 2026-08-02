@@ -1,4 +1,15 @@
-export default function RecommendedBooth({ isOpen, setIsOpen }) {
+import { useNavigate } from "react-router-dom";
+
+import SmallCard from "./SmallCard";
+import BigCard from "./BigCard";
+
+export default function RecommendedBooth({ booth, isOpen, setIsOpen }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/servicelist");
+  };
+
   return (
     <div
       className={`
@@ -21,6 +32,21 @@ export default function RecommendedBooth({ isOpen, setIsOpen }) {
       >
         <div className="w-[4.375rem] h-[0.25rem] rounded-full bg-[#363636]" />
       </button>
+
+      <div className="flex flex-col  gap-[0.5rem]">
+        <BigCard />
+        <div className="flex flex-row w-full justify-center gap-[0.5rem]">
+          <SmallCard title="최다 조회수" />
+          <SmallCard title="최고 조회시간" />
+        </div>
+      </div>
+
+      <div
+        onClick={handleClick}
+        className="cursor-pointer  mt-[1.3rem] text-[0.875rem] font-extralight text-[#FF6000]"
+      >
+        출품작 전체보기 →
+      </div>
     </div>
   );
 }
