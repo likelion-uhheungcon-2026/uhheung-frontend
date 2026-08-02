@@ -1,18 +1,26 @@
 import menudown from "../assets/menu-icon-down.svg";
+import menudownclick from "../assets/menu-icon-down-click.svg";
 
 const options = [
   { type: "text", value: "이름 순" },
   { type: "text", value: "인기 순" },
   { type: "text", value: "추천 순" },
-  { type: "icon", value: menudown },
+  { type: "icon" },
 ];
 
-export default function MenuBox({ selected, setSelected }) {
+export default function MenuBox({
+  selected,
+  setSelected,
+  isDownOpen,
+  setIsDownOpen,
+}) {
   const handleClick = (option) => {
-    if (selected === option.value) {
-      setSelected(null);
-    } else {
+    if (option.type === "text") {
+      // 항상 하나만 선택
       setSelected(option.value);
+    } else {
+      // 아이콘만 토글
+      setIsDownOpen((prev) => !prev);
     }
   };
 
@@ -29,9 +37,9 @@ export default function MenuBox({ selected, setSelected }) {
       "
     >
       <div className="flex gap-[0.4rem]">
-        {options.map((option) => (
+        {options.map((option, index) => (
           <button
-            key={option.value}
+            key={index}
             onClick={() => handleClick(option)}
             className={
               option.type === "icon"
@@ -51,6 +59,7 @@ export default function MenuBox({ selected, setSelected }) {
                   bg-[#000]
                   flex items-center justify-center
                   text-[0.75rem]
+                  transition-colors
                   ${selected === option.value ? "text-[#FF6000]" : "text-white"}
                 `
             }
@@ -59,7 +68,7 @@ export default function MenuBox({ selected, setSelected }) {
               option.value
             ) : (
               <img
-                src={option.value}
+                src={isDownOpen ? menudownclick : menudown}
                 alt="메뉴"
                 className="w-[1.5rem] h-[1.5rem]"
               />
