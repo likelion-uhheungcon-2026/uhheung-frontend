@@ -1,17 +1,18 @@
 import icon from "../assets/terminal-icon.svg";
-import TimeLine from "./TimeLine";
+import timetable from "../assets/timetable.png";
+// import TimeLine from "./TimeLine";
 
 export default function TimeTable() {
-  const schedule = [
-    { time: "1200", destination: "개회식" },
-    { time: "1230", destination: "부스준비" },
-    { time: "1300", destination: "세미나진행" },
-    { time: "1400", destination: "부스행사" },
-    { time: "1630", destination: "부스정리" },
-    { time: "1700", destination: "세미나진행" },
-    { time: "1800", destination: "시상식및폐회식" },
-    { time: "1900", destination: "비어파티" },
-  ];
+  // const schedule = [
+  //   { time: "1200", destination: "개회식" },
+  //   { time: "1230", destination: "부스준비" },
+  //   { time: "1300", destination: "세미나진행" },
+  //   { time: "1400", destination: "부스행사" },
+  //   { time: "1630", destination: "부스정리" },
+  //   { time: "1700", destination: "세미나진행" },
+  //   { time: "1800", destination: "시상식및폐회식" },
+  //   { time: "1900", destination: "비어파티" },
+  // ];
 
   return (
     <div className="text-white mt-[0.7rem] flex flex-col justify-center items-center">
@@ -26,13 +27,14 @@ export default function TimeTable() {
       </div>
 
       <div className="mt-[0.2rem]">
-        {schedule.map((item, index) => (
+        {/* {schedule.map((item, index) => (
           <TimeLine
             key={index}
             time={item.time}
             destination={item.destination}
           />
-        ))}
+        ))} */}
+        <img src={timetable} className="px-[1.31rem]" />
       </div>
     </div>
   );
