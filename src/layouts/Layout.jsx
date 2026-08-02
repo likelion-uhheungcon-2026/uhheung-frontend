@@ -6,11 +6,11 @@ function Layout() {
       <main
         className="
           w-full
-          max-w-[25.125rem]
           min-h-screen
           bg-[#141414]
-          border-x
-          border-neutral-400
+          md:max-w-[25.125rem]
+          md:border-x
+          md:border-neutral-400
           overflow-hidden
         "
       >
