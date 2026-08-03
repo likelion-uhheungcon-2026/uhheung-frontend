@@ -25,7 +25,7 @@ export default function ServiceListPage() {
   });
 
   return (
-    <div className="pt-[env(safe-area-inset-top)] h-screen flex flex-col text-white bg-[#141414]">
+    <div className=" h-screen flex flex-col text-white bg-[#141414]">
       {/* 고정 영역 */}
       <SerchTab
         searchValue={searchValue}
