@@ -43,6 +43,7 @@ export default function HomePage() {
             booth={selectedBooth}
             isOpen={isDetailOpen}
             setIsOpen={setIsDetailOpen}
+            key={selectedBoothId}
           />
         ) : (
           <RecommendedBooth
