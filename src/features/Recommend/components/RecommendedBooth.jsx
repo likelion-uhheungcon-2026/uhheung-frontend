@@ -48,8 +48,23 @@ export default function RecommendedBooth({
         />
 
         <div className="flex justify-center gap-[0.5rem]">
-          <SmallCard title="최다 조회수" />
-          <SmallCard title="최고 조회시간" />
+          <SmallCard
+            title="최다 조회수"
+            boothId={1} // 하드코딩
+            setSelectedBoothId={setSelectedBoothId}
+            setIsOpen={setIsOpen}
+            setTab={setTab}
+            booths={booths}
+          />
+
+          <SmallCard
+            title="최고 조회시간"
+            boothId={2} // 하드코딩
+            setSelectedBoothId={setSelectedBoothId}
+            setIsOpen={setIsOpen}
+            setTab={setTab}
+            booths={booths}
+          />
         </div>
       </div>
 

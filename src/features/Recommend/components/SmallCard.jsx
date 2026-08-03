@@ -1,13 +1,25 @@
-import test from "../../BoothDetail/assets/킽ㅣ.jpg";
+export default function SmallCard({
+  title,
+  boothId,
+  setSelectedBoothId,
+  setIsOpen,
+  setTab,
+  booths,
+}) {
+  const handleClick = () => {
+    setSelectedBoothId(boothId);
+    setTab("booth");
+    setIsOpen(true);
+  };
+  const booth = booths.find((b) => b.id === boothId);
 
-export default function SmallCard({ title }) {
   return (
     <div
+      onClick={handleClick}
       className="
         relative
         w-[11rem]
-          h-[8.96875rem]
-        aspect-[11/13.25]
+        h-[8.96875rem]
         rounded-[0.625rem]
         overflow-hidden
         cursor-pointer
@@ -15,7 +27,7 @@ export default function SmallCard({ title }) {
       "
     >
       <img
-        src={test}
+        src={booth.serviceimage}
         className="
           absolute
           inset-0
@@ -24,6 +36,7 @@ export default function SmallCard({ title }) {
           object-cover
         "
       />
+
       <div
         className="
           absolute
@@ -31,6 +44,7 @@ export default function SmallCard({ title }) {
           bg-[linear-gradient(180deg,rgba(20,20,20,0)_50%,#141414_100%)]
         "
       />
+
       <div
         className="
           absolute

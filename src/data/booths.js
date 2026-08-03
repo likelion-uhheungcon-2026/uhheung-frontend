@@ -1,4 +1,5 @@
 import image from "../features/BoothDetail/assets/킽ㅣ.jpg";
+import image2 from "../features/BoothDetail/assets/하하.jpg";
 
 export const booths = [
   {
@@ -41,7 +42,7 @@ export const booths = [
     name: "StudyFlow",
     team: "공부해",
     tag: "AAC",
-    serviceimage: image,
+    serviceimage: image2,
     servicelink: "https://studyflow.vercel.app",
     projectlink: "https://github.com/uhheungcon/studyflow",
     maincontent: "학습 계획부터 기록까지 관리하는 스마트 공부 서비스",
@@ -74,7 +75,7 @@ export const booths = [
     name: "펫케어",
     team: "멍멍냥냥",
     tag: "AAC",
-    serviceimage: image,
+    serviceimage: image2,
     servicelink: "https://petcare.vercel.app",
     projectlink: "https://github.com/uhheungcon/petcare",
     maincontent: "반려동물 건강을 기록하고 관리하는 서비스",
@@ -142,7 +143,7 @@ export const booths = [
     name: "FitLog",
     team: "살빼기",
     tag: "멋사",
-    serviceimage: image,
+    serviceimage: image2,
     servicelink: "https://fitlog.vercel.app",
     projectlink: "https://github.com/uhheungcon/fitlog",
     maincontent: "운동 기록과 식단을 함께 관리하는 헬스 플랫폼",
