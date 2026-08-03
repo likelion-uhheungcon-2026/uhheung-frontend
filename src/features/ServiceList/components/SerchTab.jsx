@@ -18,7 +18,11 @@ export default function SerchTab({
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const [selectedMenu, setSelectedMenu] = useState(null);
+  // 기본값: 추천 순
+  const [selectedMenu, setSelectedMenu] = useState("추천 순");
+
+  // 메뉴 안의 아래 화살표 상태
+  const [isDownOpen, setIsDownOpen] = useState(false);
 
   const tabRef = useRef(null);
 
@@ -150,7 +154,6 @@ export default function SerchTab({
             top-full
             w-full
             px-[1.31rem]
-            mt-0
             z-30
           "
         >
@@ -170,11 +173,15 @@ export default function SerchTab({
             top-full
             w-full
             px-[1.31rem]
-            mt-0
             z-30
           "
         >
-          <MenuBox selected={selectedMenu} setSelected={setSelectedMenu} />
+          <MenuBox
+            selected={selectedMenu}
+            setSelected={setSelectedMenu}
+            isDownOpen={isDownOpen}
+            setIsDownOpen={setIsDownOpen}
+          />
         </div>
       )}
     </div>

@@ -48,9 +48,11 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
           min-h-0
           w-full
           overflow-y-auto
+          overflow-x-hidden
           scrollbar-hide
           overscroll-contain
-          mt-[1rem]
+          mt-[0.5rem]
+
         "
       >
         <MainCard booth={booth} />
@@ -62,6 +64,7 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
             className="
               sticky
               bottom-0
+              
               w-full
               h-[4.5rem]
               -mb-[0.2rem]

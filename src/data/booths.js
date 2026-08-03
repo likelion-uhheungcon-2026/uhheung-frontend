@@ -1,4 +1,5 @@
 import image from "../features/BoothDetail/assets/킽ㅣ.jpg";
+import image2 from "../features/BoothDetail/assets/하하.jpg";
 
 export const booths = [
   {
@@ -8,7 +9,8 @@ export const booths = [
     tag: "멋사",
     serviceimage: image,
     servicelink: "https://travelmate.vercel.app",
-    projectlink: "https://github.com/uhheungcon/travelmate",
+    githublink: "https://github.com/uhheungcon/travelmate",
+    figmalink: "https://figma.com/uhheungcon/travelmate",
     maincontent: "AI가 여행 계획을 쉽고 빠르게 만들어주는 서비스",
 
     content:
@@ -39,11 +41,11 @@ export const booths = [
   {
     id: 2,
     name: "StudyFlow",
-    team: "공부하자",
+    team: "공부해",
     tag: "AAC",
-    serviceimage: image,
+    serviceimage: image2,
     servicelink: "https://studyflow.vercel.app",
-    projectlink: "https://github.com/uhheungcon/studyflow",
+    githublink: "https://github.com/uhheungcon/studyflow",
     maincontent: "학습 계획부터 기록까지 관리하는 스마트 공부 서비스",
 
     content:
@@ -74,9 +76,10 @@ export const booths = [
     name: "펫케어",
     team: "멍멍냥냥",
     tag: "AAC",
-    serviceimage: image,
+    serviceimage: image2,
     servicelink: "https://petcare.vercel.app",
-    projectlink: "https://github.com/uhheungcon/petcare",
+    githublink: "https://github.com/uhheungcon/petcare",
+    figmalink: "https://figma.com/uhheungcon/petcare",
     maincontent: "반려동물 건강을 기록하고 관리하는 서비스",
 
     content:
@@ -110,7 +113,8 @@ export const booths = [
     tag: "SJF",
     serviceimage: image,
     servicelink: "https://ecomarket.vercel.app",
-    projectlink: "https://github.com/uhheungcon/ecomarket",
+    githublink: "https://github.com/uhheungcon/ecomarket",
+    figmalink: "https://figma.com/uhheungcon/ecomarket",
     maincontent: "친환경 중고거래를 위한 지역 기반 플랫폼",
 
     content:
@@ -142,9 +146,10 @@ export const booths = [
     name: "FitLog",
     team: "살빼기",
     tag: "멋사",
-    serviceimage: image,
+    serviceimage: image2,
     servicelink: "https://fitlog.vercel.app",
-    projectlink: "https://github.com/uhheungcon/fitlog",
+    githublink: "https://github.com/uhheungcon/fitlog",
+    figmalink: "https://figma.com/uhheungcon/fitlog",
     maincontent: "운동 기록과 식단을 함께 관리하는 헬스 플랫폼",
 
     content:
@@ -180,7 +185,8 @@ export const booths = [
       tag: "OPEN",
       serviceimage: image,
       servicelink: `https://service${id}.vercel.app`,
-      projectlink: `https://github.com/uhheungcon/service${id}`,
+      githublink: `https://github.com/uhheungcon/service${id}`,
+      figmalink: `https://figma.com/uhheungcon/service${id}`,
       maincontent: `사용자의 문제를 해결하는 AI 기반 서비스${id}`,
 
       content: `서비스${id}는 사용자의 불편함을 해결하기 위해 제작된 서비스입니다. 

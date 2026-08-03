@@ -52,7 +52,7 @@ export default function ServiceListItem({ booth }) {
       >
         <div
           className="
-            w-[2.8rem]
+            w-[2.7rem]
             h-[1.5rem]
             rounded-[0.3125rem]
             bg-[rgba(0,0,0,0.8)]
@@ -60,6 +60,7 @@ export default function ServiceListItem({ booth }) {
             justify-center
             items-center
             text-[0.75rem]
+            tracking-[0.04rem]
             text-[#FF6000]
           "
         >
