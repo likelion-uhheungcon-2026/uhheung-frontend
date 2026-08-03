@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 import SmallCard from "./SmallCard";
 import BigCard from "./BigCard";
 
-export default function RecommendedBooth({ booth, isOpen, setIsOpen }) {
+export default function RecommendedBooth({
+  booths,
+  isOpen,
+  setIsOpen,
+  setSelectedBoothId,
+  setTab,
+}) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -17,7 +23,7 @@ export default function RecommendedBooth({ booth, isOpen, setIsOpen }) {
         flex flex-col justify-start items-center
         h-screen
         rounded-t-[0.625rem]
-        z-100
+        z-[100]
         bg-[#010101]
         px-[1.31rem]
         text-white
@@ -33,20 +39,26 @@ export default function RecommendedBooth({ booth, isOpen, setIsOpen }) {
         <div className="w-[4.375rem] h-[0.25rem] rounded-full bg-[#363636]" />
       </button>
 
-      <div className="flex flex-col  gap-[0.5rem]">
-        <BigCard />
-        <div className="flex flex-row w-full justify-center gap-[0.5rem]">
+      <div className="flex flex-col gap-[0.5rem]">
+        <BigCard
+          booths={booths}
+          setSelectedBoothId={setSelectedBoothId}
+          setIsOpen={setIsOpen}
+          setTab={setTab}
+        />
+
+        <div className="flex justify-center gap-[0.5rem]">
           <SmallCard title="최다 조회수" />
           <SmallCard title="최고 조회시간" />
         </div>
       </div>
 
-      <div
+      <button
         onClick={handleClick}
-        className="cursor-pointer  mt-[1.3rem] text-[0.875rem] font-extralight text-[#FF6000]"
+        className="mt-[1.3rem] text-[0.875rem] font-extralight text-[#FF6000] cursor-pointer"
       >
         출품작 전체보기 →
-      </div>
+      </button>
     </div>
   );
 }

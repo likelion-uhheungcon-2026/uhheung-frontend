@@ -1,21 +1,51 @@
-import test from "../../BoothDetail/assets/킽ㅣ.jpg";
+import { useEffect, useState } from "react";
 
-export default function BigCard() {
+export default function BigCard({
+  booths,
+  setSelectedBoothId,
+  setIsOpen,
+  setTab,
+}) {
+  const recommendBooths = booths.filter(
+    (booth) => booth.id >= 1 && booth.id <= 5,
+  );
+
+  const [current, setCurrent] = useState(0);
+
+  // 3초마다 자동 슬라이드
+  useEffect(() => {
+    if (recommendBooths.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % recommendBooths.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [recommendBooths.length]);
+
+  if (recommendBooths.length === 0) return null;
+
+  const booth = recommendBooths[current];
+
   return (
     <div
       className="
-        relative
-        w-[22.5rem]
-          h-[8.96875rem]
-        aspect-[11/13.25]
-        rounded-[0.625rem]
-        overflow-hidden
-        cursor-pointer
-        border-box
-      "
+    relative
+    w-[22.5rem]
+    h-[8.96875rem]
+    rounded-[0.625rem]
+    overflow-hidden
+    cursor-pointer
+  "
+      onClick={() => {
+        setSelectedBoothId(booth.id);
+        setTab("booth");
+        setIsOpen(true);
+      }}
     >
       <img
-        src={test}
+        src={booth.serviceimage}
+        alt={booth.name}
         className="
           absolute
           inset-0
@@ -24,6 +54,7 @@ export default function BigCard() {
           object-cover
         "
       />
+
       <div
         className="
           absolute
@@ -31,6 +62,7 @@ export default function BigCard() {
           bg-[linear-gradient(180deg,rgba(20,20,20,0)_50%,#141414_100%)]
         "
       />
+
       <div
         className="
           absolute
@@ -40,16 +72,45 @@ export default function BigCard() {
           px-[1.1rem]
           pb-[0.5rem]
           text-white
+          z-10
         "
       >
-        <div className="fw-full flex justify-between items-end">
-          <div className="text-[1rem] font-sbaggro ">추천 작품</div>
+        <div className="flex justify-between items-end">
+          <div className="text-[1rem] font-sbaggro">추천 작품</div>
 
-          <div className="flex flex-col items-end text-[0.875rem] font-sbaggro ">
-            <div>19번</div>
-            <div>트래블</div>
+          <div className="flex flex-col items-end text-[0.875rem] font-sbaggro">
+            <div>{booth.id}번</div>
+            <div>{booth.name}</div>
           </div>
         </div>
+      </div>
+
+      {/* 인디케이터 */}
+      <div
+        className="
+          absolute
+          left-1/2
+          -translate-x-1/2
+          bottom-[0.6rem]
+          flex
+          gap-[0.25rem]
+          z-20
+        "
+      >
+        {recommendBooths.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrent(index)}
+            className={`
+              w-[0.25rem]
+              h-[0.25rem]
+              rounded-full
+              transition-all
+              duration-300
+              ${current === index ? "bg-[#FF6000]" : "bg-[#8c8c8c]"}
+            `}
+          />
+        ))}
       </div>
     </div>
   );

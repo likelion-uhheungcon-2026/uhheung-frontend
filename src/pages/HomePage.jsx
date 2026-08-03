@@ -46,9 +46,11 @@ export default function HomePage() {
           />
         ) : (
           <RecommendedBooth
-            booth={selectedBooth}
+            booths={booths}
             isOpen={isDetailOpen}
             setIsOpen={setIsDetailOpen}
+            setSelectedBoothId={setSelectedBoothId}
+            setTab={setTab}
           />
         )}
       </div>
