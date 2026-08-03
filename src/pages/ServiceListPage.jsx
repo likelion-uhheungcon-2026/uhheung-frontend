@@ -25,18 +25,21 @@ export default function ServiceListPage() {
   });
 
   return (
-    <div className=" w-full h-screen flex flex-col justify-center text-white bg-[#141414]">
-      {/* 고정 영역 */}
-      <SerchTab
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-        selectedFilters={selectedFilters}
-        setSelectedFilters={setSelectedFilters}
-      />
+    //모바일 너비설정
+    <div className="w-full flex justify-center">
+      <div className="max-w-[25.1rem]  h-screen flex flex-col justify-center text-white bg-[#141414]">
+        {/* 고정 영역 */}
+        <SerchTab
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          selectedFilters={selectedFilters}
+          setSelectedFilters={setSelectedFilters}
+        />
 
-      {/* 리스트만 스크롤 */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-[1.31rem]">
-        <ServiceList booths={filteredBooths} />
+        {/* 리스트만 스크롤 */}
+        <div className="flex-1 overflow-y-auto scrollbar-hide px-[1.31rem]">
+          <ServiceList booths={filteredBooths} />
+        </div>
       </div>
     </div>
   );

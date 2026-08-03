@@ -11,6 +11,7 @@ export default function ServiceList({ booths }) {
         gap-y-[0.2rem]
         mt-[1rem]
         mb-[1.56rem]
+        
       "
     >
       {booths.map((booth) => (
