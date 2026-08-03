@@ -40,7 +40,10 @@ export default function SmallCard({
       <div
         className="
           absolute
-          inset-0
+    left-0
+    right-0
+    -bottom-[0.2rem]
+    top-0
           bg-[linear-gradient(180deg,rgba(20,20,20,0)_50%,#141414_100%)]
         "
       />
