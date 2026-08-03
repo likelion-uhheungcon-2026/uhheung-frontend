@@ -28,7 +28,7 @@ export default function RecommendedBooth({
         px-[1.31rem]
         text-white
         transition-transform duration-300 ease-in-out
-        ${isOpen ? "translate-y-0" : "translate-y-[calc(100%-24rem)]"}
+        ${isOpen ? "translate-y-[calc(100%-24rem)]" : "translate-y-[calc(100%-24rem)]"}
       `}
     >
       {/* 핸들 영역 */}
