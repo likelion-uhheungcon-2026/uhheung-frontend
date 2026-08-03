@@ -20,6 +20,10 @@ body {
   font-weight: 400;
 }
 
+header {
+  padding-top: env(safe-area-inset-top);
+}
+
 /* SB Aggro */
 @font-face {
   font-family: "SB Aggro";
