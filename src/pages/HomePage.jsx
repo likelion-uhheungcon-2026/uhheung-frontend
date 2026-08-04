@@ -23,13 +23,14 @@ export default function HomePage() {
   const selectedBooth = booths.find((booth) => booth.id === selectedBoothId);
 
   return (
-    <div className="pt-[env(safe-area-inset-top)] relative min-h-screen overflow-hidden">
+    <div className=" relative min-h-screen overflow-hidden">
       <HomeBtn tab={tab} setTab={setTab} />
 
       <div className="h-[22rem] bg-[#141414]">
         {tab === "booth" ? (
           <BoothMap
             setSelectedBoothId={setSelectedBoothId}
+            selectedBoothId={selectedBoothId}
             setIsDetailOpen={setIsDetailOpen}
           />
         ) : (
@@ -43,6 +44,7 @@ export default function HomePage() {
             booth={selectedBooth}
             isOpen={isDetailOpen}
             setIsOpen={setIsDetailOpen}
+            key={selectedBoothId}
           />
         ) : (
           <RecommendedBooth

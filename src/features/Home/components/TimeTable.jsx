@@ -34,7 +34,7 @@ export default function TimeTable() {
             destination={item.destination}
           />
         ))} */}
-        <img src={timetable} className="px-[1.31rem]" />
+        <img src={timetable} className="max-w-[22.5rem]" />
       </div>
     </div>
   );

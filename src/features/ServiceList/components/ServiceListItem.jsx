@@ -4,7 +4,7 @@ export default function ServiceListItem({ booth }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/", {
+    navigate("/home", {
       state: {
         boothId: booth.id,
       },
@@ -16,8 +16,7 @@ export default function ServiceListItem({ booth }) {
       onClick={handleClick}
       className="
         relative
-        w-full
-        max-w-[11rem]
+        w-[11rem]
         aspect-[11/13.25]
         rounded-[0.625rem]
         overflow-hidden
@@ -81,7 +80,6 @@ export default function ServiceListItem({ booth }) {
       >
         <div className="flex items-center gap-[0.5rem]">
           <div className="text-[0.9375rem] font-semibold">{booth.name}</div>
-
           <div className="text-[0.75rem] font-medium">&lt;{booth.team}&gt;</div>
         </div>
 

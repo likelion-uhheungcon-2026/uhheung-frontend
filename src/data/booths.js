@@ -1,5 +1,8 @@
-import image from "../features/BoothDetail/assets/킽ㅣ.jpg";
-import image2 from "../features/BoothDetail/assets/하하.jpg";
+import image1 from "../features/BoothDetail/assets/service1.svg";
+import image2 from "../features/BoothDetail/assets/service2.svg";
+import image3 from "../features/BoothDetail/assets/service3.svg";
+import image4 from "../features/BoothDetail/assets/service4.svg";
+import none from "../features/Onboarding/assets/lion-logo.svg";
 
 export const booths = [
   {
@@ -7,7 +10,7 @@ export const booths = [
     name: "트래블",
     team: "여행가자",
     tag: "멋사",
-    serviceimage: image,
+    serviceimage: image1,
     servicelink: "https://travelmate.vercel.app",
     githublink: "https://github.com/uhheungcon/travelmate",
     figmalink: "https://figma.com/uhheungcon/travelmate",
@@ -76,7 +79,7 @@ export const booths = [
     name: "펫케어",
     team: "멍멍냥냥",
     tag: "AAC",
-    serviceimage: image2,
+    serviceimage: image3,
     servicelink: "https://petcare.vercel.app",
     githublink: "https://github.com/uhheungcon/petcare",
     figmalink: "https://figma.com/uhheungcon/petcare",
@@ -111,7 +114,7 @@ export const booths = [
     name: "EcoMarket",
     team: "친환경",
     tag: "SJF",
-    serviceimage: image,
+    serviceimage: image4,
     servicelink: "https://ecomarket.vercel.app",
     githublink: "https://github.com/uhheungcon/ecomarket",
     figmalink: "https://figma.com/uhheungcon/ecomarket",
@@ -146,7 +149,7 @@ export const booths = [
     name: "FitLog",
     team: "살빼기",
     tag: "멋사",
-    serviceimage: image2,
+    serviceimage: none,
     servicelink: "https://fitlog.vercel.app",
     githublink: "https://github.com/uhheungcon/fitlog",
     figmalink: "https://figma.com/uhheungcon/fitlog",
@@ -183,7 +186,7 @@ export const booths = [
       name: `서비스${id}`,
       team: `팀${id}`,
       tag: "OPEN",
-      serviceimage: image,
+      serviceimage: none,
       servicelink: `https://service${id}.vercel.app`,
       githublink: `https://github.com/uhheungcon/service${id}`,
       figmalink: `https://figma.com/uhheungcon/service${id}`,

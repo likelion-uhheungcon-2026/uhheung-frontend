@@ -53,7 +53,7 @@ export default function SerchTab({
   };
 
   return (
-    <div ref={tabRef} className="relative mt-[1rem] z-20">
+    <div ref={tabRef} className="relative mt-[1rem] sm:mt-[4.1rem] z-20">
       <div className="mb-[0.56rem] flex justify-between items-center px-[1.31rem]">
         {/* 검색창 */}
         <div
