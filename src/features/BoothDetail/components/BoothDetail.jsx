@@ -26,7 +26,7 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
         px-[1.31rem]
         text-white
         transition-all duration-300 ease-in-out
-        ${isOpen ? "h-[calc(100vh-4.15rem)] sm:h-[calc(100vh-7.25rem)]" : "h-[26rem] "}
+        ${isOpen ? "h-[calc(100vh-4.15rem)] sm:h-[calc(100vh-7.25rem)]" : "h-[25rem] sm:h-[26rem]"}
       `}
     >
       <div className="shrink-0 w-full bg-[#010101]">
