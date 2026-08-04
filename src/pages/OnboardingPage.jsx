@@ -8,8 +8,8 @@ export default function OnboardingPage() {
     navigate("/home");
   };
   return (
-    <div className="w-full flex flex-col items-center gap-[17.25rem]">
-      <div className="w-full mt-[9.53rem] sm:mt-[12.63rem] gap-[0.81rem] flex flex-col items-center">
+    <div className="w-full h-screen flex flex-col justify-between items-center py-[5rem]">
+      <div className="w-full mt-[4.53rem] sm:mt-[7.63rem] gap-[0.81rem] flex flex-col items-center">
         <img src={logo} className="w-[15.5625rem] h-[5.9375rem]" />
         <img src={lionlogo} className="w-[12rem]" />
       </div>
