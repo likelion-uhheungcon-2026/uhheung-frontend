@@ -8,9 +8,9 @@ import corner3 from "../assets/corner3.svg";
 import corner4 from "../assets/corner4.svg";
 import corner5 from "../assets/corner5.svg";
 
-export default function BoothMap({ setSelectedBoothId }) {
+export default function BoothMap({ selectedBoothId, setSelectedBoothId }) {
   return (
-    <div className="mt-[2rem] flex justify-center">
+    <div className="mt-[1rem] flex justify-center">
       <div className="w-[18.75rem]">
         {/* Plane */}
         <div className="flex justify-center mb-[0.3rem]">
@@ -53,10 +53,12 @@ export default function BoothMap({ setSelectedBoothId }) {
 
           {/* Booth Grid */}
           <div className="grid grid-cols-8 gap-x-0 gap-y-[1.25rem] text-white">
-            {booths.map((booth) => (
+            {booths.map((booth, index) => (
               <Booth
                 key={booth.id}
                 booth={booth}
+                column={Math.floor(index / 8) + 1}
+                selectedBoothId={selectedBoothId}
                 setSelectedBoothId={setSelectedBoothId}
               />
             ))}

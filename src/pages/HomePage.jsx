@@ -30,6 +30,7 @@ export default function HomePage() {
         {tab === "booth" ? (
           <BoothMap
             setSelectedBoothId={setSelectedBoothId}
+            selectedBoothId={selectedBoothId}
             setIsDetailOpen={setIsDetailOpen}
           />
         ) : (
