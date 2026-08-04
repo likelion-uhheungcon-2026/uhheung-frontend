@@ -2,7 +2,7 @@ import icon from "../assets/terminal-icon.svg";
 import timetable from "../assets/timetable.png";
 // import TimeLine from "./TimeLine";
 
-export default function TimeTable({ scale }) {
+export default function TimeTable() {
   // const schedule = [
   //   { time: "1200", destination: "개회식" },
   //   { time: "1230", destination: "부스준비" },
@@ -15,13 +15,7 @@ export default function TimeTable({ scale }) {
   // ];
 
   return (
-    <div
-      className="transition-transform duration-300"
-      style={{
-        transform: `scale(${scale})`,
-        transformOrigin: "top center",
-      }}
-    >
+    <div className="booth-scale">
       <div className="text-white mt-[0.7rem] flex flex-col justify-center items-center">
         <div className="text-[#FF6000] w-[22.5rem] px-[1.4rem] flex flex-row items-center gap-[1rem]">
           <img src={icon} className="w-[1.8125rem]" />
