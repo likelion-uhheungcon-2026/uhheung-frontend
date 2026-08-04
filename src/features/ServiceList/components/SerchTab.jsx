@@ -55,16 +55,17 @@ export default function SerchTab({
   return (
     <div
       ref={tabRef}
-      className="relative flex w-full justify-center mt-[1rem] sm:mt-[4.1rem] z-20"
+      className="relative px-[1.31rem] flex w-full justify-between mt-[1rem] sm:mt-[4.1rem] z-20"
     >
-      <div className="w-[22.375rem] mb-[0.56rem] flex justify-between  items-center ">
+      <div className=" mb-[0.56rem] w-full flex justify-between  items-center ">
         {/* 검색창 */}
         <div
           className="
             px-[0.58rem]
             flex items-center
             gap-[0.44rem]
-            w-[17.5rem]
+            flex-1
+            max-w-[17.5rem]
             h-[2.5rem]
             bg-[#050505]
             rounded-[0.3125rem]
@@ -90,7 +91,7 @@ export default function SerchTab({
         {/* 필터 */}
         <div
           onClick={handleFilterClick}
-          className="relative w-[1.5rem] h-[1.5rem] cursor-pointer"
+          className="relative ml-[0.7rem] w-[1.5rem] h-[1.5rem] cursor-pointer"
         >
           {isFilterOpen && (
             <div
@@ -120,7 +121,7 @@ export default function SerchTab({
         {/* 메뉴 */}
         <div
           onClick={handleMenuClick}
-          className="relative w-[1.5rem] h-[1.5rem] cursor-pointer"
+          className="relative mx-[0.7rem] w-[1.5rem] h-[1.5rem] cursor-pointer"
         >
           {isMenuOpen && (
             <div

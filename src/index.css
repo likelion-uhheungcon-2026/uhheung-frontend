@@ -54,23 +54,51 @@ header {
 
 /* 미디어쿼리설정 */
 
-/* iPhone 14 Pro, Galaxy S */
-@media (max-height: 820px) {
-  .booth-scale {
-    transform: scale(0.8);
-  }
-}
-
-/* iPhone 13 / 14 */
-@media (max-height: 740px) {
-  .booth-scale {
-    transform: scale(0.7);
-  }
-}
-
-/* iPhone SE */
-@media (max-height: 670px) {
+/* iPhone SE (1세대), 매우 작은 Android */
+@media (max-height: 570px) {
   .booth-scale {
     transform: scale(0.6);
+  }
+}
+
+/* iPhone SE 2/3 (667px) */
+@media (max-height: 670px) {
+  .booth-scale {
+    transform: scale(0.68);
+  }
+}
+
+/* Galaxy S8~S10, iPhone 8 Plus */
+@media (max-height: 720px) {
+  .booth-scale {
+    transform: scale(0.76);
+  }
+}
+
+/* iPhone 12 mini (780px) */
+@media (max-height: 780px) {
+  .booth-scale {
+    transform: scale(0.82);
+  }
+}
+
+/* iPhone 12 / 13 / 14 / 15 */
+@media (max-height: 850px) {
+  .booth-scale {
+    transform: scale(0.9);
+  }
+}
+
+/* iPhone 14 Pro / 15 Pro / Galaxy S23 */
+@media (max-height: 900px) {
+  .booth-scale {
+    transform: scale(0.96);
+  }
+}
+
+/* Pro Max / Plus / Ultra */
+@media (max-height: 950px) {
+  .booth-scale {
+    transform: scale(1);
   }
 }
