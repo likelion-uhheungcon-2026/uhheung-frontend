@@ -16,7 +16,7 @@ export default function ServiceListItem({ booth }) {
       onClick={handleClick}
       className="
         relative
-        w-[11rem]
+        w-full
         aspect-[11/13.25]
         rounded-[0.625rem]
         overflow-hidden
@@ -25,6 +25,7 @@ export default function ServiceListItem({ booth }) {
     >
       <img
         src={booth.serviceimage}
+        alt={booth.name}
         className="
           absolute
           inset-0
@@ -45,22 +46,23 @@ export default function ServiceListItem({ booth }) {
       <div
         className="
           absolute
-          top-[1.1rem]
-          left-[0.75rem]
+          top-[0.9rem]
+          left-[0.7rem]
         "
       >
         <div
           className="
-            w-[2.7rem]
+            px-[0.5rem]
             h-[1.5rem]
             rounded-[0.3125rem]
             bg-[rgba(0,0,0,0.8)]
             flex
             justify-center
             items-center
-            text-[0.75rem]
+            text-[clamp(0.625rem,2vw,0.75rem)]
             tracking-[0.04rem]
             text-[#FF6000]
+            whitespace-nowrap
           "
         >
           {booth.tag}
@@ -73,17 +75,22 @@ export default function ServiceListItem({ booth }) {
           bottom-0
           left-0
           w-full
-          px-[1.1rem]
-          pb-[1.1rem]
+          px-[0.9rem]
+          pb-[0.9rem]
           text-white
         "
       >
-        <div className="flex items-center gap-[0.5rem]">
-          <div className="text-[0.9375rem] font-semibold">{booth.name}</div>
-          <div className="text-[0.75rem] font-medium">&lt;{booth.team}&gt;</div>
+        <div className="flex items-center gap-[0.35rem] flex-wrap">
+          <div className="text-[clamp(0.8rem,2.5vw,0.9375rem)] font-semibold">
+            {booth.name}
+          </div>
+
+          <div className="text-[clamp(0.625rem,2vw,0.75rem)] font-medium">
+            &lt;{booth.team}&gt;
+          </div>
         </div>
 
-        <div className="text-[0.6875rem] font-medium mt-[0.25rem]">
+        <div className="mt-[0.2rem] text-[clamp(0.6rem,1.8vw,0.6875rem)] font-medium line-clamp-2">
           "{booth.maincontent}"
         </div>
       </div>

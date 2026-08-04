@@ -6,12 +6,9 @@ export default function ServiceList({ booths }) {
       className="
         grid
         grid-cols-2
-        justify-items-center
-        gap-x-[8px]
-        gap-y-[0.2rem]
+        gap-[0.5rem]
         mt-[1rem]
         mb-[1.56rem]
-        
       "
     >
       {booths.map((booth) => (
