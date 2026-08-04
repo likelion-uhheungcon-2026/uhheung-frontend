@@ -57,7 +57,7 @@ export default function SerchTab({
       ref={tabRef}
       className="relative px-[1.31rem] flex w-full justify-between mt-[1rem] sm:mt-[4.1rem] z-20"
     >
-      <div className=" mb-[0.56rem] w-full flex justify-between  items-center ">
+      <div className=" mb-[0.56rem] w-full flex items-center ">
         {/* 검색창 */}
         <div
           className="
@@ -65,7 +65,7 @@ export default function SerchTab({
             flex items-center
             gap-[0.44rem]
             flex-1
-            max-w-[17.5rem]
+            
             h-[2.5rem]
             bg-[#050505]
             rounded-[0.3125rem]
