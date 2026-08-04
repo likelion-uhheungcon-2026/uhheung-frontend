@@ -46,3 +46,31 @@ header {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.booth-scale {
+  transform-origin: top center;
+  transition: transform 0.3s ease;
+}
+
+/* 미디어쿼리설정 */
+
+/* iPhone 14 Pro, Galaxy S */
+@media (max-height: 820px) {
+  .booth-scale {
+    transform: scale(0.8);
+  }
+}
+
+/* iPhone 13 / 14 */
+@media (max-height: 740px) {
+  .booth-scale {
+    transform: scale(0.7);
+  }
+}
+
+/* iPhone SE */
+@media (max-height: 670px) {
+  .booth-scale {
+    transform: scale(0.6);
+  }
+}
