@@ -1,4 +1,4 @@
-import logo from "../features/Onboarding/assets/logo.svg";
+import logo from "../features/Onboarding/assets/logo.png";
 import lionlogo from "../features/Onboarding/assets/lion-logo.svg";
 import { useNavigate } from "react-router-dom";
 export default function OnboardingPage() {
