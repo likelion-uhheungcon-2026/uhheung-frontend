@@ -153,13 +153,12 @@ export default function SerchTab({
       {isFilterOpen && (
         <div
           className="
-            absolute
-            left-[9.674rem]
-            top-full
-            w-full
-            px-[1.31rem]
-            z-30
-          "
+      absolute
+      top-full
+      right-[1.3rem]
+      mt-[0.4rem]
+      z-30
+    "
         >
           <FilterBox
             selected={selectedFilters}
@@ -172,13 +171,12 @@ export default function SerchTab({
       {isMenuOpen && (
         <div
           className="
-            absolute
-            left-[8.174rem]
-            top-full
-            w-full
-            px-[1.31rem]
-            z-30
-          "
+      absolute
+      top-full
+      right-[1.3rem]
+      mt-[0.4rem]
+      z-30
+    "
         >
           <MenuBox
             selected={selectedMenu}
