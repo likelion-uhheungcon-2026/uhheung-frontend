@@ -8,9 +8,19 @@ import corner3 from "../assets/corner3.svg";
 import corner4 from "../assets/corner4.svg";
 import corner5 from "../assets/corner5.svg";
 
-export default function BoothMap({ selectedBoothId, setSelectedBoothId }) {
+export default function BoothMap({
+  scale,
+  selectedBoothId,
+  setSelectedBoothId,
+}) {
   return (
-    <div className="mt-[1rem] flex justify-center">
+    <div
+      className="mt-[1rem] flex justify-center transition-transform duration-300"
+      style={{
+        transform: `scale(${scale})`,
+        transformOrigin: "top center",
+      }}
+    >
       <div className="w-[18.75rem]">
         {/* Plane */}
         <div className="flex justify-center mb-[0.3rem]">
