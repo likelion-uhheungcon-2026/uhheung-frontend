@@ -2,7 +2,7 @@ import image1 from "../features/BoothDetail/assets/service1.svg";
 import image2 from "../features/BoothDetail/assets/service2.svg";
 import image3 from "../features/BoothDetail/assets/service3.svg";
 import image4 from "../features/BoothDetail/assets/service4.svg";
-import image5 from "../features/BoothDetail/assets/service4.svg";
+import none from "../features/Onboarding/assets/lion-logo.svg";
 
 export const booths = [
   {
@@ -149,7 +149,7 @@ export const booths = [
     name: "FitLog",
     team: "살빼기",
     tag: "멋사",
-    serviceimage: image5,
+    serviceimage: none,
     servicelink: "https://fitlog.vercel.app",
     githublink: "https://github.com/uhheungcon/fitlog",
     figmalink: "https://figma.com/uhheungcon/fitlog",
@@ -186,7 +186,7 @@ export const booths = [
       name: `서비스${id}`,
       team: `팀${id}`,
       tag: "OPEN",
-      serviceimage: image1,
+      serviceimage: none,
       servicelink: `https://service${id}.vercel.app`,
       githublink: `https://github.com/uhheungcon/service${id}`,
       figmalink: `https://figma.com/uhheungcon/service${id}`,
