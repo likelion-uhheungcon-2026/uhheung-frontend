@@ -37,7 +37,7 @@ export default function RecommendedBooth({
         onClick={() => setIsOpen(!isOpen)}
         className="w-full h-[2rem] flex justify-center pt-[0.6rem]"
       >
-        <div className="w-[4.375rem] h-[0.25rem] rounded-full bg-[#363636]" />
+        <div className="mb-[0.6rem] w-[4.375rem] h-[0.25rem] rounded-full bg-[#363636]" />
       </button>
 
       <div className="flex flex-col gap-[0.5rem]">
