@@ -10,7 +10,7 @@ import corner5 from "../assets/corner5.svg";
 
 export default function BoothMap({ selectedBoothId, setSelectedBoothId }) {
   return (
-    <div className="booth-scale mt-[1rem] flex justify-center">
+    <div className="mt-[1rem] flex justify-center">
       <div className="w-[18.75rem]">
         {/* Plane */}
         <div className="flex justify-center mb-[0.3rem]">
