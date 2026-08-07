@@ -1,12 +1,15 @@
 import logo from "../features/Onboarding/assets/logo.png";
 import lionlogo from "../features/Onboarding/assets/lion-logo.svg";
 import { useNavigate } from "react-router-dom";
+
 export default function OnboardingPage() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/home");
+    localStorage.setItem("visited", "true");
+    navigate("/home", { replace: true });
   };
+
   return (
     <div className="w-full h-screen flex flex-col justify-between items-center py-[5rem]">
       <div className="w-full mt-[4.53rem] sm:mt-[7.63rem] gap-[0.81rem] flex flex-col items-center">
