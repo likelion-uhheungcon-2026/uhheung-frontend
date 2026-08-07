@@ -105,15 +105,11 @@ export default function SerchTab({
                 -translate-x-1/2
                 -translate-y-1/2
               "
-              style={{
-                background:
-                  "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,.2) 0%, rgba(255,255,255,.06) 50%, rgba(255,255,255,0) 100%)",
-              }}
             />
           )}
 
           <img
-            src={isFilterOpen ? filterclick : filter}
+            src={isFilterOpen ? filter : filterclick}
             className="relative z-10 w-[1.5rem] h-[1.5rem]"
           />
         </div>
@@ -135,15 +131,11 @@ export default function SerchTab({
                 -translate-x-1/2
                 -translate-y-1/2
               "
-              style={{
-                background:
-                  "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,.2) 0%, rgba(255,255,255,.06) 50%, rgba(255,255,255,0) 100%)",
-              }}
             />
           )}
 
           <img
-            src={isMenuOpen ? menuclick : menu}
+            src={isMenuOpen ? menu : menuclick}
             className="relative z-10 w-[1.5rem] h-[1.5rem]"
           />
         </div>

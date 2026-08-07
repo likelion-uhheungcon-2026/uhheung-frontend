@@ -13,12 +13,12 @@ export default function FilterBox({ selected, setSelected }) {
     <div
       className="
         flex items-center justify-center
-        w-[12.75rem]
+        w-[13.3rem]
         h-[2.5rem]
         rounded-[0.625rem]
-        bg-[rgba(54,54,54,0.20)]
         shadow-[0_4px_6px_0_rgba(0,0,0,0.40)]
-        backdrop-blur-[2px]
+  bg-[rgba(0,0,0,0.60)]
+  backdrop-blur-[15px]
       "
     >
       <div className="flex gap-[0.4rem]">
