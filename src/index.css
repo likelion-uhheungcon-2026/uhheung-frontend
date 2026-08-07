@@ -51,3 +51,28 @@ header {
   transform-origin: top center;
   transition: transform 0.3s ease;
 }
+
+.booth-detail-closed {
+  height: 26rem;
+}
+
+/* 화면 높이가 낮은 기기 */
+@media (max-height: 740px) {
+  .booth-detail-closed {
+    height: 17rem;
+  }
+}
+
+/* 일반적인 모바일 */
+@media (min-height: 741px) and (max-height: 850px) {
+  .booth-detail-closed {
+    height: 23rem;
+  }
+}
+
+/* 화면이 큰 모바일 */
+@media (min-height: 851px) {
+  .booth-detail-closed {
+    height: 25rem;
+  }
+}
