@@ -12,7 +12,6 @@ export default function HomePage() {
   const location = useLocation();
 
   const [tab, setTab] = useState("booth");
-
   const [isDetailOpen, setIsDetailOpen] = useState(
     Boolean(location.state?.boothId),
   );
@@ -24,14 +23,14 @@ export default function HomePage() {
   const selectedBooth = booths.find((booth) => booth.id === selectedBoothId);
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className=" relative min-h-screen overflow-hidden">
       <HomeBtn tab={tab} setTab={setTab} />
 
       <div className="h-[22rem] bg-[#141414]">
         {tab === "booth" ? (
           <BoothMap
-            selectedBoothId={selectedBoothId}
             setSelectedBoothId={setSelectedBoothId}
+            selectedBoothId={selectedBoothId}
             setIsDetailOpen={setIsDetailOpen}
           />
         ) : (
@@ -39,22 +38,24 @@ export default function HomePage() {
         )}
       </div>
 
-      {tab === "booth" ? (
-        <BoothDetail
-          booth={selectedBooth}
-          isOpen={isDetailOpen}
-          setIsOpen={setIsDetailOpen}
-          key={selectedBoothId}
-        />
-      ) : (
-        <RecommendedBooth
-          booths={booths}
-          isOpen={isDetailOpen}
-          setIsOpen={setIsDetailOpen}
-          setSelectedBoothId={setSelectedBoothId}
-          setTab={setTab}
-        />
-      )}
+      <div>
+        {tab === "booth" ? (
+          <BoothDetail
+            booth={selectedBooth}
+            isOpen={isDetailOpen}
+            setIsOpen={setIsDetailOpen}
+            key={selectedBoothId}
+          />
+        ) : (
+          <RecommendedBooth
+            booths={booths}
+            isOpen={isDetailOpen}
+            setIsOpen={setIsDetailOpen}
+            setSelectedBoothId={setSelectedBoothId}
+            setTab={setTab}
+          />
+        )}
+      </div>
     </div>
   );
 }
