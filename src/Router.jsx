@@ -3,6 +3,7 @@ import App from "./App";
 import HomePage from "./pages/HomePage";
 import ServiceListPage from "./pages/ServiceListPage";
 import OnboardingPage from "./pages/OnboardingPage";
+import BoothDetailPage from "./pages/BoothDetailPage";
 
 const hasVisited = localStorage.getItem("visited");
 
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       },
       { path: "home", element: <HomePage /> },
       { path: "servicelist", element: <ServiceListPage /> },
+      { path: "booth/:boothId", element: <BoothDetailPage /> },
     ],
   },
 ]);

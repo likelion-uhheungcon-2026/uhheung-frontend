@@ -12,9 +12,7 @@ export default function HomePage() {
   const location = useLocation();
 
   const [tab, setTab] = useState("booth");
-  const [isDetailOpen, setIsDetailOpen] = useState(
-    Boolean(location.state?.boothId),
-  );
+  const [sheetStage, setSheetStage] = useState(1);
 
   const [selectedBoothId, setSelectedBoothId] = useState(
     location.state?.boothId ?? 1,
@@ -22,16 +20,24 @@ export default function HomePage() {
 
   const selectedBooth = booths.find((booth) => booth.id === selectedBoothId);
 
-  return (
-    <div className=" relative min-h-screen overflow-hidden">
-      <HomeBtn tab={tab} setTab={setTab} />
+  const handleTabChange = (nextTab) => {
+    if (nextTab === tab) return;
 
-      <div className="h-[22rem] bg-[#141414]">
+    setTab(nextTab);
+    setSheetStage(1);
+  };
+
+  return (
+    <div className="app-viewport relative flex min-h-0 flex-col overflow-hidden">
+      <HomeBtn tab={tab} setTab={handleTabChange} />
+
+      <div
+        className="scrollbar-hide min-h-0 flex-1 overflow-y-auto overscroll-contain bg-[#141414] pb-[max(5rem,env(safe-area-inset-bottom))]"
+      >
         {tab === "booth" ? (
           <BoothMap
             setSelectedBoothId={setSelectedBoothId}
             selectedBoothId={selectedBoothId}
-            setIsDetailOpen={setIsDetailOpen}
           />
         ) : (
           <TimeTable />
@@ -42,17 +48,17 @@ export default function HomePage() {
         {tab === "booth" ? (
           <BoothDetail
             booth={selectedBooth}
-            isOpen={isDetailOpen}
-            setIsOpen={setIsDetailOpen}
+            sheetStage={sheetStage}
+            setSheetStage={setSheetStage}
             key={selectedBoothId}
           />
         ) : (
           <RecommendedBooth
             booths={booths}
-            isOpen={isDetailOpen}
-            setIsOpen={setIsDetailOpen}
+            sheetStage={sheetStage}
+            setSheetStage={setSheetStage}
             setSelectedBoothId={setSelectedBoothId}
-            setTab={setTab}
+            setTab={handleTabChange}
           />
         )}
       </div>

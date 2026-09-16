@@ -4,11 +4,7 @@ export default function ServiceListItem({ booth }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/home", {
-      state: {
-        boothId: booth.id,
-      },
-    });
+    navigate(`/booth/${booth.id}`);
   };
 
   return (

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 export default function BigCard({
   booths,
   setSelectedBoothId,
-  setIsOpen,
   setTab,
 }) {
   const recommendBooths = booths.filter(
@@ -31,8 +30,11 @@ export default function BigCard({
     <div
       className="
     relative
-    w-[22.5rem]
-    h-[8.96875rem]
+    w-full
+    h-auto
+    min-h-0
+    max-h-[9.96875rem]
+    flex-1
     rounded-[0.625rem]
     overflow-hidden
     cursor-pointer
@@ -40,7 +42,6 @@ export default function BigCard({
       onClick={() => {
         setSelectedBoothId(booth.id);
         setTab("booth");
-        setIsOpen(true);
       }}
     >
       <img
@@ -70,7 +71,7 @@ export default function BigCard({
           left-0
           w-full
           px-[1.1rem]
-          pb-[0.5rem]
+          pb-[clamp(0.5rem,1.8vh,1rem)]
           text-white
           z-10
         "
@@ -80,7 +81,9 @@ export default function BigCard({
 
           <div className="flex flex-col items-end text-[0.875rem] font-sbaggro">
             <div>{booth.id}번</div>
-            <div>{booth.name}</div>
+            <div>
+              {booth.name} | {booth.team}
+            </div>
           </div>
         </div>
       </div>
@@ -93,6 +96,7 @@ export default function BigCard({
           -translate-x-1/2
           bottom-[0.6rem]
           flex
+          items-center
           gap-[0.25rem]
           z-20
         "
@@ -100,14 +104,21 @@ export default function BigCard({
         {recommendBooths.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrent(index)}
+            type="button"
+            aria-label={`${index + 1}번째 추천 작품 보기`}
+            onClick={(event) => {
+              event.stopPropagation();
+              setCurrent(index);
+            }}
             className={`
-              w-[0.25rem]
-              h-[0.25rem]
               rounded-full
-              transition-all
+              transition-[width,height,background-color]
               duration-300
-              ${current === index ? "bg-[#FF6000]" : "bg-[#8c8c8c]"}
+              ${
+                current === index
+                  ? "h-[0.375rem] w-[0.375rem] bg-[#FF6000]"
+                  : "h-[0.25rem] w-[0.25rem] bg-[#8c8c8c]"
+              }
             `}
           />
         ))}

@@ -2,14 +2,12 @@ export default function SmallCard({
   title,
   boothId,
   setSelectedBoothId,
-  setIsOpen,
   setTab,
   booths,
 }) {
   const handleClick = () => {
     setSelectedBoothId(boothId);
     setTab("booth");
-    setIsOpen(true);
   };
   const booth = booths.find((b) => b.id === boothId);
 
@@ -18,8 +16,10 @@ export default function SmallCard({
       onClick={handleClick}
       className="
         relative
-        w-[11rem]
-        h-[8.96875rem]
+        flex-1
+        min-w-0
+        h-full
+        min-h-0
         rounded-[0.625rem]
         overflow-hidden
         cursor-pointer
@@ -42,7 +42,7 @@ export default function SmallCard({
           absolute
     left-0
     right-0
-    -bottom-[0.2rem]
+    -bottom-[0rem]
     top-0
           bg-[linear-gradient(180deg,rgba(20,20,20,0)_50%,#141414_100%)]
         "
@@ -55,7 +55,7 @@ export default function SmallCard({
           left-0
           w-full
           px-[1.1rem]
-          pb-[0.3rem]
+          pb-[clamp(0.4rem,1.4vh,0.7rem)]
           text-white
         "
       >
