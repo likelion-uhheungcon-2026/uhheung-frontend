@@ -26,8 +26,8 @@ export default function ServiceListPage() {
 
   return (
     //모바일 너비설정
-    <div className="w-full flex justify-center">
-      <div className=" w-full h-screen flex flex-col justify-center text-white bg-[#141414]">
+    <div className="app-viewport flex w-full justify-center overflow-hidden">
+      <div className="flex h-full min-h-0 w-full flex-col bg-[#141414] text-white">
         {/* 고정 영역 */}
         <SerchTab
           searchValue={searchValue}
@@ -37,7 +37,7 @@ export default function ServiceListPage() {
         />
 
         {/* 리스트만 스크롤 */}
-        <div className="flex-1 overflow-y-auto scrollbar-hide px-[1.31rem]">
+        <div className="scrollbar-hide min-h-0 flex-1 overflow-y-auto px-[1.31rem] pb-[max(1rem,env(safe-area-inset-bottom))]">
           <ServiceList booths={filteredBooths} />
         </div>
       </div>

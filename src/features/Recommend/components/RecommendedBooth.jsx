@@ -111,7 +111,7 @@ export default function RecommendedBooth({
       </div>
 
       <div
-        className={`flex w-full min-h-0 flex-1 flex-col gap-[0.5rem] overflow-hidden pb-[1.75rem] ${
+        className={`flex w-full min-h-0 flex-1 flex-col gap-[0.5rem] overflow-hidden pb-[max(1.75rem,env(safe-area-inset-bottom))] ${
           recommendedStage > 0 ? "visible" : "invisible"
         }`}
       >

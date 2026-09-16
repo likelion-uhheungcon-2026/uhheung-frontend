@@ -18,8 +18,8 @@ export default function BoothDetailPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#0B0B0B] px-[1.31rem] pt-[3.75rem] text-white">
-      <header className="relative flex h-[3.75rem] shrink-0 items-start justify-between pb-[0.75rem] pt-[env(safe-area-inset-top)]">
+    <div className="app-viewport flex min-h-0 flex-col overflow-hidden bg-[#0B0B0B] px-[1.31rem] pt-[max(3.75rem,env(safe-area-inset-top))] text-white">
+      <header className="relative flex h-[3.75rem] shrink-0 items-start justify-between pb-[0.75rem]">
         <button
           type="button"
           onClick={() => navigate("/servicelist")}

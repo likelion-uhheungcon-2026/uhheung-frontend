@@ -195,6 +195,7 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
           overflow-x-hidden
           scrollbar-hide
           overscroll-contain
+          pb-[env(safe-area-inset-bottom)]
           mt-[0.5rem]
           cursor-grab
           ${sheetStage > 0 ? "visible" : "invisible"}

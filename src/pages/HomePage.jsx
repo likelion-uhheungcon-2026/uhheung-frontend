@@ -28,11 +28,11 @@ export default function HomePage() {
   };
 
   return (
-    <div className=" relative min-h-screen overflow-hidden">
+    <div className="app-viewport relative flex min-h-0 flex-col overflow-hidden">
       <HomeBtn tab={tab} setTab={handleTabChange} />
 
       <div
-        className={`${tab === "booth" ? "h-[18rem]" : "h-[22rem]"} bg-[#141414]`}
+        className="scrollbar-hide min-h-0 flex-1 overflow-y-auto overscroll-contain bg-[#141414] pb-[max(5rem,env(safe-area-inset-bottom))]"
       >
         {tab === "booth" ? (
           <BoothMap

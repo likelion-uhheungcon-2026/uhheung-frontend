@@ -57,7 +57,7 @@ export default function SerchTab({
   return (
     <div
       ref={tabRef}
-      className="relative px-[1.31rem] flex w-full justify-between mt-[1rem] sm:mt-[4.1rem] z-20"
+      className="relative z-20 flex w-full shrink-0 justify-between px-[1.31rem] pt-[max(1rem,env(safe-area-inset-top))]"
     >
       <div className="mb-[0.56rem] flex w-full items-center">
         <button
@@ -103,7 +103,7 @@ export default function SerchTab({
               bg-transparent
               outline-none
               text-[#d8d8d8]
-              text-[0.875rem]
+              text-[1rem]
               placeholder:text-[#555555]
             "
           />

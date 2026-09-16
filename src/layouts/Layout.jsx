@@ -2,11 +2,11 @@ import { Outlet } from "react-router-dom";
 
 function Layout() {
   return (
-    <div className="min-h-screen bg-neutral-300 flex justify-center">
+    <div className="app-min-viewport flex justify-center bg-neutral-300">
       <main
         className="
           w-full
-          min-h-screen
+          app-min-viewport
           bg-[#141414]
           md:max-w-[25.125rem]
           md:border-x

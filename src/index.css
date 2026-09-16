@@ -18,10 +18,18 @@ body,
 body {
   font-family: "Inter", sans-serif;
   font-weight: 400;
+  overflow-x: hidden;
+  background: #141414;
 }
 
-header {
-  padding-top: env(safe-area-inset-top);
+.app-viewport {
+  height: 100vh;
+  height: 100dvh;
+}
+
+.app-min-viewport {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* SB Aggro */
@@ -66,7 +74,7 @@ header {
   height: calc(100dvh - 4.15rem);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) and (min-height: 700px) {
   .sheet-stage-middle {
     height: clamp(5rem, calc(100vh - 27.25rem), 28rem);
     height: clamp(5rem, calc(100dvh - 27.25rem), 28rem);

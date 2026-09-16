@@ -2,8 +2,8 @@ import bg from "../assets/timeline-bg.svg";
 
 export default function TimeLine({ time, destination }) {
   return (
-    <div className="relative w-[22.5rem] h-auto mb-[0.3rem]">
-      <img src={bg} className="w-[22.5rem] block" />
+    <div className="relative mb-[0.3rem] h-auto w-full max-w-[22.5rem]">
+      <img src={bg} className="block w-full" />
 
       <div className="absolute inset-0 flex items-center px-[0.28rem] text-[#CACACA] text-[0.9375rem] flex-row">
         <div className="flex flex-row">
