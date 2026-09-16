@@ -1,70 +1,42 @@
-export default function Booth({
-  booth,
-  column,
-  selectedBoothId,
-  setSelectedBoothId,
-}) {
-  const isEven = booth.id % 2 === 0;
+export default function Booth({ booth, selectedBoothId, setSelectedBoothId }) {
   const isSelected = selectedBoothId === booth.id;
 
-  const baseColor = isEven ? "#262626" : "#363636";
-
-  const opacityMap = {
-    1: 0,
-    2: 0.05,
-    3: 0.1,
-    4: 0.15,
-    5: 0.2,
-  };
-
-  const opacity = opacityMap[column] ?? 0;
-
-  const background =
-    opacity === 0
-      ? baseColor
-      : `linear-gradient(
-          0deg,
-          rgba(255,96,0,${opacity}) 0%,
-          rgba(255,96,0,${opacity}) 100%
-        ), ${baseColor}`;
-
   return (
-    <div
+    <button
+      type="button"
       onClick={() => setSelectedBoothId(booth.id)}
-      className="
-        cursor-pointer
-        w-[2.23438rem]
-        h-[2.5rem]
-        rounded-[0.125rem]
-        border
-        flex
-        flex-col
-        justify-center
-        items-center
-        gap-[0.1rem]
-      "
-      style={{
-        background,
-        borderColor: isSelected ? "#FF6000" : "transparent",
-      }}
+      aria-pressed={isSelected}
+      aria-label={`${booth.id}번 ${booth.team} ${booth.name}`}
+      className={`
+        font-sbaggro flex h-[3rem] w-[2.7rem] min-w-0 cursor-pointer
+        flex-col items-center justify-center overflow-hidden rounded-[0.32rem]
+        border-2  text-center transition-colors duration-200
+        ${
+          isSelected
+            ? "border-[#FF6000] bg-[#302A27]"
+            : "border-transparent bg-[#3B3735]"
+        }
+      `}
     >
-      <div
-        className="text-[1rem] leading-none"
-        style={{
-          color: isSelected ? "#FF6000" : "#FFFFFF",
-        }}
+      <span
+        className={`text-[1rem] font-light leading-none ${
+          isSelected ? "text-[#FF6000]" : "text-white"
+        }`}
       >
         {booth.id}
-      </div>
+      </span>
 
-      <div
-        className="text-[0.4375rem] font-extralight"
-        style={{
-          color: isSelected ? "#FF6000" : "#FFFFFF",
-        }}
+      <span className="w-full truncate text-[clamp(0.28rem,1.25vw,0.34rem)] font-light leading-tight text-white">
+        {booth.team}
+      </span>
+
+      <span
+        className={`mt-[0.1rem] w-full truncate text-[clamp(0.31rem,1.45vw,0.39rem)] font-medium leading-tight ${
+          isSelected ? "text-[#FF6000]" : "text-white"
+        }`}
       >
         {booth.name}
-      </div>
-    </div>
+      </span>
+    </button>
   );
 }

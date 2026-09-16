@@ -5,8 +5,9 @@ import Links from "./Links";
 import MainCard from "./MainCard";
 import Content from "./Content";
 
-export default function BoothDetail({ booth, isOpen, setIsOpen }) {
+export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
   const [isBottom, setIsBottom] = useState(false);
+  const [isRefactoringReport, setIsRefactoringReport] = useState(false);
 
   // 드래그 시작 위치
   const startY = useRef(null);
@@ -16,6 +17,12 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
 
   // 드래그 중인지 확인
   const isDragging = useRef(false);
+
+  // 핸들 드래그 뒤 click 이벤트가 다시 상태를 바꾸는 것을 방지
+  const didDrag = useRef(false);
+
+  // 클릭으로 단계를 바꿀 때 펼침/접힘 방향 유지
+  const clickDirection = useRef(1);
 
   // 현재 스크롤 영역
   const scrollRef = useRef(null);
@@ -42,6 +49,11 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
     startY.current = e.clientY;
     startScrollTop.current = scrollElement.scrollTop;
     isDragging.current = true;
+    didDrag.current = false;
+
+    if (scrollElement.tagName === "BUTTON") {
+      scrollElement.setPointerCapture(e.pointerId);
+    }
   };
 
   // ==============================
@@ -58,32 +70,23 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
 
     const scrollElement = e.currentTarget;
 
-    // ========================================
-    // 1. 닫힌 상태
-    // ========================================
-    // 위로 50px 이상 드래그하면 오픈
-    // ========================================
-    if (!isOpen) {
-      if (diff > 50) {
-        setIsOpen(true);
+    const isHandle = scrollElement.tagName === "BUTTON";
+    const isAtTop = scrollElement.scrollTop <= 0;
 
-        startY.current = null;
-        isDragging.current = false;
-      }
+    if (isHandle && diff > 50 && sheetStage < 2) {
+      didDrag.current = true;
+      clickDirection.current = 1;
+      setSheetStage((prev) => Math.min(2, prev + 1));
 
+      startY.current = null;
+      isDragging.current = false;
       return;
     }
 
-    // ========================================
-    // 2. 열린 상태
-    // ========================================
-    // 콘텐츠가 맨 위에 있을 때만
-    // 아래로 50px 이상 드래그하면 닫기
-    // ========================================
-    const isAtTop = scrollElement.scrollTop <= 0;
-
-    if (isAtTop && diff < -50) {
-      setIsOpen(false);
+    if ((isHandle || isAtTop) && diff < -50 && sheetStage > 0) {
+      didDrag.current = true;
+      clickDirection.current = -1;
+      setSheetStage((prev) => Math.max(0, prev - 1));
 
       startY.current = null;
       isDragging.current = false;
@@ -95,6 +98,27 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
     startY.current = null;
     isDragging.current = false;
   };
+
+  const handleStageClick = () => {
+    if (didDrag.current) {
+      didDrag.current = false;
+      return;
+    }
+
+    setSheetStage((prev) => {
+      if (prev === 0) clickDirection.current = 1;
+      if (prev === 2) clickDirection.current = -1;
+
+      return prev + clickDirection.current;
+    });
+  };
+
+  const sheetHeightClass =
+    sheetStage === 2
+      ? "sheet-stage-expanded"
+      : sheetStage === 1
+        ? "sheet-stage-middle"
+        : "sheet-stage-collapsed";
 
   return (
     <div
@@ -113,23 +137,27 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
         transition-all
         duration-300
         ease-in-out
-        ${
-          isOpen
-            ? "h-[calc(100vh-4.15rem)] sm:h-[calc(100vh-7.25rem)]"
-            : "booth-detail-closed"
-        }
+        ${sheetHeightClass}
       `}
     >
       {/* 헤더 */}
-      <div className="shrink-0 w-full bg-[#010101]">
+      <div className="shrink-0 h-[4.7rem] w-full bg-[#010101]">
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          type="button"
+          onClick={handleStageClick}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          style={{ touchAction: "none" }}
+          aria-label={`상세 정보 패널: ${sheetStage + 1}단계`}
           className="
             w-full
             h-[2rem]
             flex
             justify-center
             pt-[0.6rem]
+            cursor-grab
           "
         >
           <div
@@ -156,9 +184,9 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
         style={{
           // 닫힌 상태 -> 위로 드래그해서 BottomSheet 열기
           // 열린 상태 -> 정상적인 세로 스크롤
-          touchAction: isOpen ? "pan-y" : "none",
+          touchAction: sheetStage > 0 ? "pan-y" : "none",
         }}
-        className="
+        className={`
           relative
           flex-1
           min-h-0
@@ -169,13 +197,18 @@ export default function BoothDetail({ booth, isOpen, setIsOpen }) {
           overscroll-contain
           mt-[0.5rem]
           cursor-grab
-        "
+          ${sheetStage > 0 ? "visible" : "invisible"}
+        `}
       >
         <MainCard booth={booth} />
 
-        <Links booth={booth} />
+        <Links
+          booth={booth}
+          isRefactoringReport={isRefactoringReport}
+          setIsRefactoringReport={setIsRefactoringReport}
+        />
 
-        <Content booth={booth} />
+        <Content booth={booth} isRefactoringReport={isRefactoringReport} />
 
         {/* ==============================
             하단 그라데이션

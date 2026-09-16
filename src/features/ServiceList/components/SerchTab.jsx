@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import search from "../assets/search-icon.svg";
 import filter from "../assets/filter-icon.svg";
@@ -15,6 +16,7 @@ export default function SerchTab({
   selectedFilters,
   setSelectedFilters,
 }) {
+  const navigate = useNavigate();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -57,22 +59,41 @@ export default function SerchTab({
       ref={tabRef}
       className="relative px-[1.31rem] flex w-full justify-between mt-[1rem] sm:mt-[4.1rem] z-20"
     >
-      <div className=" mb-[0.56rem] w-full flex items-center ">
+      <div className="mb-[0.56rem] flex w-full items-center">
+        <button
+          type="button"
+          onClick={() => navigate("/home")}
+          aria-label="홈으로 돌아가기"
+          className="mr-[0.55rem] flex h-[2.5rem] w-[1.8rem] shrink-0 cursor-pointer items-center justify-start text-[#9A9A9A]"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="h-[1.7rem] w-[1.7rem]"
+            fill="none"
+          >
+            <path
+              d="M15 4 7 12l8 8"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
         {/* 검색창 */}
         <div
           className="
-            px-[0.58rem]
-            flex items-center
-            gap-[0.44rem]
+            flex min-w-0 items-center
             flex-1
-            
+            gap-[0.5rem]
             h-[2.5rem]
             bg-[#050505]
             rounded-[0.3125rem]
+            px-[0.75rem]
           "
         >
-          <img src={search} className="w-[1rem] h-[1rem]" />
-
           <input
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
@@ -83,15 +104,22 @@ export default function SerchTab({
               outline-none
               text-[#d8d8d8]
               text-[0.875rem]
-              placeholder:text-[#d8d8d8]
+              placeholder:text-[#555555]
             "
+          />
+
+          <img
+            src={search}
+            alt=""
+            aria-hidden="true"
+            className="h-[1rem] w-[1rem] shrink-0"
           />
         </div>
 
         {/* 필터 */}
         <div
           onClick={handleFilterClick}
-          className="relative ml-[0.7rem] w-[1.5rem] h-[1.5rem] cursor-pointer"
+          className="relative ml-[0.7rem] h-[1.5rem] w-[1.5rem] shrink-0 cursor-pointer"
         >
           {isFilterOpen && (
             <div
@@ -117,7 +145,7 @@ export default function SerchTab({
         {/* 메뉴 */}
         <div
           onClick={handleMenuClick}
-          className="relative mx-[0.7rem] w-[1.5rem] h-[1.5rem] cursor-pointer"
+          className="relative ml-[0.7rem] h-[1.5rem] w-[1.5rem] shrink-0 cursor-pointer"
         >
           {isMenuOpen && (
             <div

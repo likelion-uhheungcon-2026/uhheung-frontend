@@ -52,27 +52,28 @@ header {
   transition: transform 0.3s ease;
 }
 
-.booth-detail-closed {
-  height: 26rem;
+.sheet-stage-collapsed {
+  height: 5rem;
 }
 
-/* 화면 높이가 낮은 기기 */
-@media (max-height: 740px) {
-  .booth-detail-closed {
-    height: 17rem;
+.sheet-stage-middle {
+  height: clamp(5rem, calc(100vh - 24.125rem), 28rem);
+  height: clamp(5rem, calc(100dvh - 24.125rem), 28rem);
+}
+
+.sheet-stage-expanded {
+  height: calc(100vh - 4.15rem);
+  height: calc(100dvh - 4.15rem);
+}
+
+@media (min-width: 640px) {
+  .sheet-stage-middle {
+    height: clamp(5rem, calc(100vh - 27.25rem), 28rem);
+    height: clamp(5rem, calc(100dvh - 27.25rem), 28rem);
   }
-}
 
-/* 일반적인 모바일 */
-@media (min-height: 741px) and (max-height: 850px) {
-  .booth-detail-closed {
-    height: 23rem;
-  }
-}
-
-/* 화면이 큰 모바일 */
-@media (min-height: 851px) {
-  .booth-detail-closed {
-    height: 25rem;
+  .sheet-stage-expanded {
+    height: calc(100vh - 7.25rem);
+    height: calc(100dvh - 7.25rem);
   }
 }

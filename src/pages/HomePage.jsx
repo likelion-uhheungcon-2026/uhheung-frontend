@@ -12,9 +12,7 @@ export default function HomePage() {
   const location = useLocation();
 
   const [tab, setTab] = useState("booth");
-  const [isDetailOpen, setIsDetailOpen] = useState(
-    Boolean(location.state?.boothId),
-  );
+  const [sheetStage, setSheetStage] = useState(1);
 
   const [selectedBoothId, setSelectedBoothId] = useState(
     location.state?.boothId ?? 1,
@@ -22,16 +20,24 @@ export default function HomePage() {
 
   const selectedBooth = booths.find((booth) => booth.id === selectedBoothId);
 
+  const handleTabChange = (nextTab) => {
+    if (nextTab === tab) return;
+
+    setTab(nextTab);
+    setSheetStage(1);
+  };
+
   return (
     <div className=" relative min-h-screen overflow-hidden">
-      <HomeBtn tab={tab} setTab={setTab} />
+      <HomeBtn tab={tab} setTab={handleTabChange} />
 
-      <div className="h-[22rem] bg-[#141414]">
+      <div
+        className={`${tab === "booth" ? "h-[18rem]" : "h-[22rem]"} bg-[#141414]`}
+      >
         {tab === "booth" ? (
           <BoothMap
             setSelectedBoothId={setSelectedBoothId}
             selectedBoothId={selectedBoothId}
-            setIsDetailOpen={setIsDetailOpen}
           />
         ) : (
           <TimeTable />
@@ -42,17 +48,17 @@ export default function HomePage() {
         {tab === "booth" ? (
           <BoothDetail
             booth={selectedBooth}
-            isOpen={isDetailOpen}
-            setIsOpen={setIsDetailOpen}
+            sheetStage={sheetStage}
+            setSheetStage={setSheetStage}
             key={selectedBoothId}
           />
         ) : (
           <RecommendedBooth
             booths={booths}
-            isOpen={isDetailOpen}
-            setIsOpen={setIsDetailOpen}
+            sheetStage={sheetStage}
+            setSheetStage={setSheetStage}
             setSelectedBoothId={setSelectedBoothId}
-            setTab={setTab}
+            setTab={handleTabChange}
           />
         )}
       </div>

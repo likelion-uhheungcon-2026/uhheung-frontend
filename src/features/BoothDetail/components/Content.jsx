@@ -1,4 +1,13 @@
-export default function BoothDetail({ booth }) {
+export default function BoothDetail({ booth, isRefactoringReport }) {
+  if (isRefactoringReport) {
+    return (
+      <div className="text-[0.75rem] mt-[1rem] mb-[2.3rem] font-extralight">
+        <div className="text-[1rem] font-medium">회고</div>
+        <div>{booth.retrospect}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="text-[0.75rem] mt-[1rem] mb-[2.3rem] font-extralight">
       <div>{booth.content}</div>
@@ -21,11 +30,6 @@ export default function BoothDetail({ booth }) {
             <li key={index}>{item}</li>
           ))}
         </ul>
-      </div>
-
-      <div className="mt-[1rem]">
-        <div className="text-[1rem] font-medium">회고</div>
-        <div>{booth.retrospect}</div>
       </div>
     </div>
   );

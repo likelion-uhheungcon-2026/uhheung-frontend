@@ -1,5 +1,5 @@
 import icon from "../assets/terminal-icon.svg";
-import timetable from "../assets/timetable.png";
+import timetable from "../assets/timetable.svg";
 // import TimeLine from "./TimeLine";
 
 export default function TimeTable() {
