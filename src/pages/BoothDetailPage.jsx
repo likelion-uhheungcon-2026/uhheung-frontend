@@ -9,13 +9,22 @@ import {
 import Content from "../features/BoothDetail/components/Content";
 import Links from "../features/BoothDetail/components/Links";
 import MainCard from "../features/BoothDetail/components/MainCard";
-import { booths } from "../data/booths";
+import { useBooths } from "../api/booths";
 
 export default function BoothDetailPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { boothId } = useParams();
   const [isRefactoringReport, setIsRefactoringReport] = useState(false);
+  const { booths, isLoading, error } = useBooths();
+
+  if (isLoading || error) {
+    return (
+      <div className="app-viewport flex items-center justify-center bg-[#0B0B0B] text-[0.875rem] text-[#9A9A9A]">
+        {error ? "부스 정보를 불러오지 못했습니다." : "불러오는 중..."}
+      </div>
+    );
+  }
 
   const booth = booths.find((item) => item.id === Number(boothId));
 

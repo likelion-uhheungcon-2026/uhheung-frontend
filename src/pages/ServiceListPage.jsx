@@ -1,9 +1,10 @@
 import { useState } from "react";
 import SerchTab from "../features/ServiceList/components/SerchTab";
 import ServiceList from "../features/ServiceList/components/ServiceList";
-import { booths } from "../data/booths";
+import { useBooths } from "../api/booths";
 
 export default function ServiceListPage() {
+  const { booths, isLoading, error } = useBooths();
   const [searchValue, setSearchValue] = useState("");
 
   // 필터 상태 추가
@@ -38,7 +39,13 @@ export default function ServiceListPage() {
 
         {/* 리스트만 스크롤 */}
         <div className="scrollbar-hide min-h-0 flex-1 overflow-y-auto px-[1.31rem] pb-[max(1rem,env(safe-area-inset-bottom))]">
-          <ServiceList booths={filteredBooths} />
+          {isLoading || error ? (
+            <p className="pt-[2rem] text-center text-[0.875rem] text-[#9A9A9A]">
+              {error ? "부스 정보를 불러오지 못했습니다." : "불러오는 중..."}
+            </p>
+          ) : (
+            <ServiceList booths={filteredBooths} />
+          )}
         </div>
       </div>
     </div>

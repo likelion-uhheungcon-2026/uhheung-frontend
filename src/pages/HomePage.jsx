@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { booths } from "../data/booths";
+import { useBooths } from "../api/booths";
 
 import HomeBtn from "../features/Home/components/HomeBtn";
 import BoothMap from "../features/Home/components/BoothMap";
@@ -11,6 +11,7 @@ import RecommendedBooth from "../features/Recommend/components/RecommendedBooth"
 export default function HomePage() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { booths, isLoading, error } = useBooths();
 
   const [tab, setTab] = useState(() =>
     location.state?.tab === "time" ? "time" : "booth",
@@ -34,6 +35,14 @@ export default function HomePage() {
     });
   };
 
+  if (isLoading || error) {
+    return (
+      <div className="app-viewport flex items-center justify-center bg-[#141414] text-[0.875rem] text-[#9A9A9A]">
+        {error ? "부스 정보를 불러오지 못했습니다." : "불러오는 중..."}
+      </div>
+    );
+  }
+
   return (
     <div className="app-viewport relative flex min-h-0 flex-col overflow-hidden">
       <HomeBtn tab={tab} setTab={handleTabChange} />
@@ -43,6 +52,7 @@ export default function HomePage() {
       >
         {tab === "booth" ? (
           <BoothMap
+            booths={booths}
             setSelectedBoothId={setSelectedBoothId}
             selectedBoothId={selectedBoothId}
           />
