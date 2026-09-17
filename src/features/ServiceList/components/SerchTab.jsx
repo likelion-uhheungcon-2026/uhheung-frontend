@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import search from "../assets/search-icon.svg";
 import filter from "../assets/filter-icon.svg";
@@ -17,6 +17,7 @@ export default function SerchTab({
   setSelectedFilters,
 }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -54,6 +55,15 @@ export default function SerchTab({
     setIsFilterOpen(false);
   };
 
+  const handleBack = () => {
+    if (location.key === "default") {
+      navigate("/home", { replace: true });
+      return;
+    }
+
+    navigate(-1);
+  };
+
   return (
     <div
       ref={tabRef}
@@ -62,8 +72,8 @@ export default function SerchTab({
       <div className="mb-[0.56rem] flex w-full items-center">
         <button
           type="button"
-          onClick={() => navigate("/home")}
-          aria-label="홈으로 돌아가기"
+          onClick={handleBack}
+          aria-label="이전 페이지로 돌아가기"
           className="mr-[0.55rem] flex h-[2.5rem] w-[1.8rem] shrink-0 cursor-pointer items-center justify-start text-[#9A9A9A]"
         >
           <svg

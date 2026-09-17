@@ -8,8 +8,6 @@ export default function RecommendedBooth({
   booths,
   sheetStage,
   setSheetStage,
-  setSelectedBoothId,
-  setTab,
 }) {
   const navigate = useNavigate();
   const startY = useRef(null);
@@ -19,6 +17,10 @@ export default function RecommendedBooth({
 
   const handleClick = () => {
     navigate("/servicelist");
+  };
+
+  const handleBoothClick = (boothId) => {
+    navigate(`/booth/${boothId}`);
   };
 
   const handlePointerDown = (event) => {
@@ -115,27 +117,21 @@ export default function RecommendedBooth({
           recommendedStage > 0 ? "visible" : "invisible"
         }`}
       >
-        <BigCard
-          booths={booths}
-          setSelectedBoothId={setSelectedBoothId}
-          setTab={setTab}
-        />
+        <BigCard booths={booths} onBoothClick={handleBoothClick} />
 
         <div className="flex w-full min-h-0 max-h-[9.96875rem] flex-1 justify-center gap-[0.5rem]">
           <SmallCard
             title="최다 조회수"
             boothId={1} // 하드코딩
-            setSelectedBoothId={setSelectedBoothId}
-            setTab={setTab}
             booths={booths}
+            onBoothClick={handleBoothClick}
           />
 
           <SmallCard
             title="최고 조회시간"
             boothId={2} // 하드코딩
-            setSelectedBoothId={setSelectedBoothId}
-            setTab={setTab}
             booths={booths}
+            onBoothClick={handleBoothClick}
           />
         </div>
       </div>

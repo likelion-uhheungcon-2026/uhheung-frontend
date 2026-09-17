@@ -1,19 +1,16 @@
 export default function SmallCard({
   title,
   boothId,
-  setSelectedBoothId,
-  setTab,
   booths,
+  onBoothClick,
 }) {
-  const handleClick = () => {
-    setSelectedBoothId(boothId);
-    setTab("booth");
-  };
   const booth = booths.find((b) => b.id === boothId);
 
   return (
-    <div
-      onClick={handleClick}
+    <button
+      type="button"
+      onClick={() => onBoothClick(boothId)}
+      aria-label={`${booth.name} 작품 상세 보기`}
       className="
         relative
         flex-1
@@ -28,6 +25,7 @@ export default function SmallCard({
     >
       <img
         src={booth.serviceimage}
+        alt=""
         className="
           absolute
           inset-0
@@ -61,6 +59,6 @@ export default function SmallCard({
       >
         <div className="text-[1rem] font-sbaggro font-normal">{title}</div>
       </div>
-    </div>
+    </button>
   );
 }

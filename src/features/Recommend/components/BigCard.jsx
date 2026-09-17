@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function BigCard({
-  booths,
-  setSelectedBoothId,
-  setTab,
-}) {
+export default function BigCard({ booths, onBoothClick }) {
   const recommendBooths = booths.filter(
     (booth) => booth.id >= 1 && booth.id <= 5,
   );
@@ -39,10 +35,6 @@ export default function BigCard({
     overflow-hidden
     cursor-pointer
   "
-      onClick={() => {
-        setSelectedBoothId(booth.id);
-        setTab("booth");
-      }}
     >
       <img
         src={booth.serviceimage}
@@ -64,6 +56,13 @@ export default function BigCard({
         "
       />
 
+      <button
+        type="button"
+        onClick={() => onBoothClick(booth.id)}
+        aria-label={`${booth.name} 작품 상세 보기`}
+        className="absolute inset-0 z-10 cursor-pointer"
+      />
+
       <div
         className="
           absolute
@@ -74,6 +73,7 @@ export default function BigCard({
           pb-[clamp(0.5rem,1.8vh,1rem)]
           text-white
           z-10
+          pointer-events-none
         "
       >
         <div className="flex justify-between items-end">

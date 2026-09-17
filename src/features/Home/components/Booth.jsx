@@ -26,7 +26,11 @@ export default function Booth({ booth, selectedBoothId, setSelectedBoothId }) {
         {booth.id}
       </span>
 
-      <span className="w-full truncate text-[clamp(0.28rem,1.25vw,0.34rem)] font-light leading-tight text-white">
+      <span
+        className={`w-full truncate text-[clamp(0.28rem,1.25vw,0.34rem)] font-light leading-tight ${
+          isSelected ? "text-[#FF6000]" : "text-white"
+        }`}
+      >
         {booth.team}
       </span>
 

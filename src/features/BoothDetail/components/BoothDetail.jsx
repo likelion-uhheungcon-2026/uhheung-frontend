@@ -12,17 +12,11 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
   // 드래그 시작 위치
   const startY = useRef(null);
 
-  // 드래그 시작 당시의 스크롤 위치
-  const startScrollTop = useRef(0);
-
   // 드래그 중인지 확인
   const isDragging = useRef(false);
 
   // 핸들 드래그 뒤 click 이벤트가 다시 상태를 바꾸는 것을 방지
   const didDrag = useRef(false);
-
-  // 클릭으로 단계를 바꿀 때 펼침/접힘 방향 유지
-  const clickDirection = useRef(1);
 
   // 현재 스크롤 영역
   const scrollRef = useRef(null);
@@ -47,11 +41,10 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
     const scrollElement = e.currentTarget;
 
     startY.current = e.clientY;
-    startScrollTop.current = scrollElement.scrollTop;
     isDragging.current = true;
     didDrag.current = false;
 
-    if (scrollElement.tagName === "BUTTON") {
+    if (sheetStage === 1 || scrollElement.tagName === "BUTTON") {
       scrollElement.setPointerCapture(e.pointerId);
     }
   };
@@ -73,20 +66,18 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
     const isHandle = scrollElement.tagName === "BUTTON";
     const isAtTop = scrollElement.scrollTop <= 0;
 
-    if (isHandle && diff > 50 && sheetStage < 2) {
+    if (diff > 50 && sheetStage === 1) {
       didDrag.current = true;
-      clickDirection.current = 1;
-      setSheetStage((prev) => Math.min(2, prev + 1));
+      setSheetStage(2);
 
       startY.current = null;
       isDragging.current = false;
       return;
     }
 
-    if ((isHandle || isAtTop) && diff < -50 && sheetStage > 0) {
+    if ((isHandle || isAtTop) && diff < -50 && sheetStage === 2) {
       didDrag.current = true;
-      clickDirection.current = -1;
-      setSheetStage((prev) => Math.max(0, prev - 1));
+      setSheetStage(1);
 
       startY.current = null;
       isDragging.current = false;
@@ -105,20 +96,11 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
       return;
     }
 
-    setSheetStage((prev) => {
-      if (prev === 0) clickDirection.current = 1;
-      if (prev === 2) clickDirection.current = -1;
-
-      return prev + clickDirection.current;
-    });
+    setSheetStage((prev) => (prev === 2 ? 1 : 2));
   };
 
   const sheetHeightClass =
-    sheetStage === 2
-      ? "sheet-stage-expanded"
-      : sheetStage === 1
-        ? "sheet-stage-middle"
-        : "sheet-stage-collapsed";
+    sheetStage === 2 ? "sheet-stage-expanded" : "sheet-stage-middle";
 
   return (
     <div
@@ -150,7 +132,7 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
           style={{ touchAction: "none" }}
-          aria-label={`상세 정보 패널: ${sheetStage + 1}단계`}
+          aria-label={`상세 정보 패널: ${sheetStage === 2 ? "전체" : "중간"} 단계`}
           className="
             w-full
             h-[2rem]
@@ -182,9 +164,9 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
         style={{
-          // 닫힌 상태 -> 위로 드래그해서 BottomSheet 열기
-          // 열린 상태 -> 정상적인 세로 스크롤
-          touchAction: sheetStage > 0 ? "pan-y" : "none",
+          // 중간 단계에서는 어느 위치에서든 위로 드래그해 패널을 연다.
+          // 전체 단계에서만 본문 스크롤을 허용한다.
+          touchAction: sheetStage === 2 ? "pan-y" : "none",
         }}
         className={`
           relative
@@ -198,7 +180,6 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
           pb-[env(safe-area-inset-bottom)]
           mt-[0.5rem]
           cursor-grab
-          ${sheetStage > 0 ? "visible" : "invisible"}
         `}
       >
         <MainCard booth={booth} />

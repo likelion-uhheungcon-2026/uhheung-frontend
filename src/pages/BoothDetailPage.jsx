@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 
 import Content from "../features/BoothDetail/components/Content";
 import Links from "../features/BoothDetail/components/Links";
@@ -8,6 +13,7 @@ import { booths } from "../data/booths";
 
 export default function BoothDetailPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { boothId } = useParams();
   const [isRefactoringReport, setIsRefactoringReport] = useState(false);
 
@@ -17,13 +23,22 @@ export default function BoothDetailPage() {
     return <Navigate to="/servicelist" replace />;
   }
 
+  const handleBack = () => {
+    if (location.key === "default") {
+      navigate("/servicelist", { replace: true });
+      return;
+    }
+
+    navigate(-1);
+  };
+
   return (
-    <div className="app-viewport flex min-h-0 flex-col overflow-hidden bg-[#0B0B0B] px-[1.31rem] pt-[max(3.75rem,env(safe-area-inset-top))] text-white">
+    <div className="app-viewport flex min-h-0 flex-col overflow-hidden bg-[#0B0B0B] px-[1.31rem] pt-[1rem] text-white">
       <header className="relative flex h-[3.75rem] shrink-0 items-start justify-between pb-[0.75rem]">
         <button
           type="button"
-          onClick={() => navigate("/servicelist")}
-          aria-label="출품작 목록으로 돌아가기"
+          onClick={handleBack}
+          aria-label="이전 페이지로 돌아가기"
           className="flex h-[2.5rem] w-[2.5rem] cursor-pointer  justify-start text-[#9A9A9A]"
         >
           <svg
