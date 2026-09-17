@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { booths } from "../data/booths";
 
 import HomeBtn from "../features/Home/components/HomeBtn";
@@ -10,8 +10,11 @@ import RecommendedBooth from "../features/Recommend/components/RecommendedBooth"
 
 export default function HomePage() {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const [tab, setTab] = useState("booth");
+  const [tab, setTab] = useState(() =>
+    location.state?.tab === "time" ? "time" : "booth",
+  );
   const [sheetStage, setSheetStage] = useState(1);
 
   const [selectedBoothId, setSelectedBoothId] = useState(
@@ -25,6 +28,10 @@ export default function HomePage() {
 
     setTab(nextTab);
     setSheetStage(1);
+    navigate("/home", {
+      replace: true,
+      state: { ...(location.state ?? {}), tab: nextTab },
+    });
   };
 
   return (
@@ -57,8 +64,6 @@ export default function HomePage() {
             booths={booths}
             sheetStage={sheetStage}
             setSheetStage={setSheetStage}
-            setSelectedBoothId={setSelectedBoothId}
-            setTab={handleTabChange}
           />
         )}
       </div>

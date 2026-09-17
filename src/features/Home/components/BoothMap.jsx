@@ -42,7 +42,7 @@ export default function BoothMap({ selectedBoothId, setSelectedBoothId }) {
     <div className="relative mt-[1rem] flex w-full justify-center">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-[7.7rem] flex h-[5rem] w-[1.25rem] items-center justify-center rounded-r-[0.35rem] bg-[#292929] text-[#9A9A9A]"
+        className="booth-entrance-marker pointer-events-none absolute left-0 top-[7.7rem] flex h-[5rem] w-[1.25rem] items-center justify-center rounded-r-[0.35rem] bg-[#292929] text-[#9A9A9A] transition-[top,height] duration-300"
       >
         <span className="absolute  top-[0.8rem] h-[0.25rem] w-[0.87rem] rounded-full bg-[#FF6000]" />
         <span className="font-sbaggro -rotate-270 whitespace-nowrap text-[0.72rem] font-light tracking-[0.08em]">
@@ -52,14 +52,14 @@ export default function BoothMap({ selectedBoothId, setSelectedBoothId }) {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-[4.55rem] flex h-[11.25rem] w-[1.25rem] items-center justify-center rounded-l-[0.35rem] bg-[#292929] text-[#9A9A9A]"
+        className="booth-stage-marker pointer-events-none absolute right-0 top-[4.55rem] flex h-[11.25rem] w-[1.25rem] items-center justify-center rounded-l-[0.35rem] bg-[#292929] text-[#9A9A9A] transition-[top,height] duration-300"
       >
         <span className="font-sbaggro rotate-90 whitespace-nowrap text-[0.72rem] font-light tracking-[0.12em]">
           STAGE
         </span>
       </div>
 
-      <div className="relative w-[calc(100%-3.75rem)] max-w-[17.5rem] text-white">
+      <div className="booth-scale relative w-[calc(100%-3.75rem)] max-w-[17.5rem] text-white">
         <img
           src={corner1}
           alt=""

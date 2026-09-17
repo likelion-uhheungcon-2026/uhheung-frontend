@@ -27,7 +27,7 @@ export default function ServiceListPage() {
   return (
     //모바일 너비설정
     <div className="app-viewport flex w-full justify-center overflow-hidden">
-      <div className="flex h-full min-h-0 w-full flex-col bg-[#141414] text-white">
+      <div className=" flex h-full min-h-0 w-full flex-col bg-[#141414] text-white">
         {/* 고정 영역 */}
         <SerchTab
           searchValue={searchValue}
