@@ -5,6 +5,15 @@ export const API_BASE = import.meta.env.VITE_API_BASE ?? "http://127.0.0.1:8000/
 
 const STALE_MS = 60 * 1000;
 
+export const byRecentViews = (a, b) =>
+  b.recentViewCount - a.recentViewCount || b.viewCount - a.viewCount || a.id - b.id;
+
+export const byViews = (a, b) =>
+  b.viewCount - a.viewCount || b.totalDurationMs - a.totalDurationMs || a.id - b.id;
+
+export const byDuration = (a, b) =>
+  b.totalDurationMs - a.totalDurationMs || b.viewCount - a.viewCount || a.id - b.id;
+
 let cachedBooths = null;
 let cachedAt = 0;
 let pendingRequest = null;

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
+import { byRecentViews } from "../../../api/booths";
 
 export default function BigCard({ booths, onBoothClick }) {
-  const recommendBooths = booths.filter(
-    (booth) => booth.id >= 1 && booth.id <= 5,
-  );
+  const recommendBooths = [...booths].sort(byRecentViews).slice(0, 5);
 
   const [current, setCurrent] = useState(0);
 
