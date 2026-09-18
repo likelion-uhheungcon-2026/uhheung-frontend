@@ -1,4 +1,3 @@
-import { booths } from "../../../data/booths";
 import Booth from "./Booth";
 
 import corner1 from "../assets/right1.svg";
@@ -37,7 +36,11 @@ const boothSections = [
   },
 ];
 
-export default function BoothMap({ selectedBoothId, setSelectedBoothId }) {
+export default function BoothMap({
+  booths,
+  selectedBoothId,
+  setSelectedBoothId,
+}) {
   return (
     <div className="relative mt-[1rem] flex w-full justify-center">
       <div

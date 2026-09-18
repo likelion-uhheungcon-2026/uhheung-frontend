@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { booths } from "../data/booths";
+import { useBooths } from "../api/booths";
+import { useBoothView } from "../api/views";
 
 import HomeBtn from "../features/Home/components/HomeBtn";
 import BoothMap from "../features/Home/components/BoothMap";
@@ -11,6 +12,7 @@ import RecommendedBooth from "../features/Recommend/components/RecommendedBooth"
 export default function HomePage() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { booths, isLoading, error } = useBooths();
 
   const [tab, setTab] = useState(() =>
     location.state?.tab === "time" ? "time" : "booth",
@@ -21,7 +23,16 @@ export default function HomePage() {
     location.state?.boothId ?? 1,
   );
 
+  const [pickedBoothId, setPickedBoothId] = useState(null);
+
+  useBoothView(pickedBoothId, tab === "booth");
+
   const selectedBooth = booths.find((booth) => booth.id === selectedBoothId);
+
+  const handleSelectBooth = (boothId) => {
+    setSelectedBoothId(boothId);
+    setPickedBoothId(boothId);
+  };
 
   const handleTabChange = (nextTab) => {
     if (nextTab === tab) return;
@@ -34,6 +45,14 @@ export default function HomePage() {
     });
   };
 
+  if (isLoading || error) {
+    return (
+      <div className="app-viewport flex items-center justify-center bg-[#141414] text-[0.875rem] text-[#9A9A9A]">
+        {error ? "부스 정보를 불러오지 못했습니다." : "불러오는 중..."}
+      </div>
+    );
+  }
+
   return (
     <div className="app-viewport relative flex min-h-0 flex-col overflow-hidden">
       <HomeBtn tab={tab} setTab={handleTabChange} />
@@ -43,7 +62,8 @@ export default function HomePage() {
       >
         {tab === "booth" ? (
           <BoothMap
-            setSelectedBoothId={setSelectedBoothId}
+            booths={booths}
+            setSelectedBoothId={handleSelectBooth}
             selectedBoothId={selectedBoothId}
           />
         ) : (
