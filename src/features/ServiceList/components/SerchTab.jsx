@@ -15,14 +15,13 @@ export default function SerchTab({
   setSearchValue,
   selectedFilters,
   setSelectedFilters,
+  selectedMenu,
+  setSelectedMenu,
 }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // 기본값: 추천 순
-  const [selectedMenu, setSelectedMenu] = useState("추천 순");
 
   // 메뉴 안의 아래 화살표 상태
   const [isDownOpen, setIsDownOpen] = useState(false);

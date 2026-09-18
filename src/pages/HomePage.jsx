@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useBooths } from "../api/booths";
+import { useBoothView } from "../api/views";
 
 import HomeBtn from "../features/Home/components/HomeBtn";
 import BoothMap from "../features/Home/components/BoothMap";
@@ -22,7 +23,16 @@ export default function HomePage() {
     location.state?.boothId ?? 1,
   );
 
+  const [pickedBoothId, setPickedBoothId] = useState(null);
+
+  useBoothView(pickedBoothId, tab === "booth");
+
   const selectedBooth = booths.find((booth) => booth.id === selectedBoothId);
+
+  const handleSelectBooth = (boothId) => {
+    setSelectedBoothId(boothId);
+    setPickedBoothId(boothId);
+  };
 
   const handleTabChange = (nextTab) => {
     if (nextTab === tab) return;
@@ -53,7 +63,7 @@ export default function HomePage() {
         {tab === "booth" ? (
           <BoothMap
             booths={booths}
-            setSelectedBoothId={setSelectedBoothId}
+            setSelectedBoothId={handleSelectBooth}
             selectedBoothId={selectedBoothId}
           />
         ) : (

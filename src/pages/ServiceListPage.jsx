@@ -3,9 +3,22 @@ import SerchTab from "../features/ServiceList/components/SerchTab";
 import ServiceList from "../features/ServiceList/components/ServiceList";
 import { useBooths } from "../api/booths";
 
+const SORTERS = {
+  "이름 순": (a, b) => a.name.localeCompare(b.name, "ko") || a.id - b.id,
+  "인기 순": (a, b) =>
+    b.viewCount - a.viewCount ||
+    b.totalDurationMs - a.totalDurationMs ||
+    a.id - b.id,
+  "추천 순": (a, b) =>
+    b.recentViewCount - a.recentViewCount ||
+    b.viewCount - a.viewCount ||
+    a.id - b.id,
+};
+
 export default function ServiceListPage() {
   const { booths, isLoading, error } = useBooths();
   const [searchValue, setSearchValue] = useState("");
+  const [selectedMenu, setSelectedMenu] = useState("추천 순");
 
   // 필터 상태 추가
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -23,7 +36,7 @@ export default function ServiceListPage() {
       selectedFilters.length === 0 || selectedFilters.includes(booth.tag);
 
     return searchMatch && filterMatch;
-  });
+  }).sort(SORTERS[selectedMenu]);
 
   return (
     //모바일 너비설정
@@ -35,6 +48,8 @@ export default function ServiceListPage() {
           setSearchValue={setSearchValue}
           selectedFilters={selectedFilters}
           setSelectedFilters={setSelectedFilters}
+          selectedMenu={selectedMenu}
+          setSelectedMenu={setSelectedMenu}
         />
 
         {/* 리스트만 스크롤 */}

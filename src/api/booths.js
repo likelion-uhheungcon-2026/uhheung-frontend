@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import lionLogo from "../features/Onboarding/assets/lion-logo.svg";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://127.0.0.1:8000/api";
+export const API_BASE = import.meta.env.VITE_API_BASE ?? "http://127.0.0.1:8000/api";
+
+const STALE_MS = 60 * 1000;
 
 let cachedBooths = null;
+let cachedAt = 0;
 let pendingRequest = null;
+const listeners = new Set();
 
 function loadBooths() {
   if (!pendingRequest) {
@@ -20,6 +24,9 @@ function loadBooths() {
           ...booth,
           serviceimage: booth.serviceimage ?? lionLogo,
         }));
+        cachedAt = Date.now();
+        pendingRequest = null;
+        listeners.forEach((listener) => listener(cachedBooths));
         return cachedBooths;
       })
       .catch((error) => {
@@ -31,10 +38,41 @@ function loadBooths() {
   return pendingRequest;
 }
 
+export function updateBoothStats(stats) {
+  if (!cachedBooths) return;
+
+  cachedBooths = cachedBooths.map((booth) =>
+    booth.id === stats.boothId
+      ? {
+          ...booth,
+          viewCount: stats.viewCount,
+          recentViewCount: stats.recentViewCount,
+          visitorCount: stats.visitorCount,
+          totalDurationMs: stats.totalDurationMs,
+          avgDurationMs: stats.avgDurationMs,
+        }
+      : booth,
+  );
+
+  listeners.forEach((listener) => listener(cachedBooths));
+}
+
 export function useBooths() {
   const [booths, setBooths] = useState(cachedBooths ?? []);
   const [isLoading, setIsLoading] = useState(cachedBooths === null);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    listeners.add(setBooths);
+
+    if (cachedBooths && Date.now() - cachedAt > STALE_MS) {
+      loadBooths().catch(() => {});
+    }
+
+    return () => {
+      listeners.delete(setBooths);
+    };
+  }, []);
 
   useEffect(() => {
     if (cachedBooths) return;

@@ -87,7 +87,7 @@ export default function ServiceListItem({ booth }) {
         </div>
 
         <div className="mt-[0.2rem] text-[clamp(0.6rem,1.8vw,0.6875rem)] font-medium line-clamp-2">
-          "{booth.maincontent}"
+          {booth.maincontent}
         </div>
       </div>
     </div>

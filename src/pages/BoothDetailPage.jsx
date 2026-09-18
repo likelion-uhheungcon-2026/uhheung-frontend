@@ -10,6 +10,7 @@ import Content from "../features/BoothDetail/components/Content";
 import Links from "../features/BoothDetail/components/Links";
 import MainCard from "../features/BoothDetail/components/MainCard";
 import { useBooths } from "../api/booths";
+import { useBoothView } from "../api/views";
 
 export default function BoothDetailPage() {
   const navigate = useNavigate();
@@ -17,6 +18,12 @@ export default function BoothDetailPage() {
   const { boothId } = useParams();
   const [isRefactoringReport, setIsRefactoringReport] = useState(false);
   const { booths, isLoading, error } = useBooths();
+  const viewedBoothId = Number(boothId);
+
+  useBoothView(
+    viewedBoothId,
+    booths.some((item) => item.id === viewedBoothId),
+  );
 
   if (isLoading || error) {
     return (
