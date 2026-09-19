@@ -22,6 +22,8 @@ export default function ServiceListItem({ booth }) {
       <img
         src={booth.serviceimage}
         alt={booth.name}
+        loading="lazy"
+        decoding="async"
         className="
           absolute
           inset-0
@@ -76,12 +78,12 @@ export default function ServiceListItem({ booth }) {
           text-white
         "
       >
-        <div className="flex items-center gap-[0.35rem] flex-wrap">
-          <div className="text-[clamp(0.8rem,2.5vw,0.9375rem)] font-semibold">
+        <div className="flex flex-wrap items-center gap-x-[0.35rem] gap-y-0">
+          <div className="text-[clamp(0.8rem,2.5vw,0.9375rem)] font-semibold leading-tight">
             {booth.name}
           </div>
 
-          <div className="text-[clamp(0.625rem,2vw,0.75rem)] font-medium">
+          <div className="text-[clamp(0.625rem,2vw,0.75rem)] font-medium leading-tight">
             &lt;{booth.team}&gt;
           </div>
         </div>

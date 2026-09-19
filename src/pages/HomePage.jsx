@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useBooths } from "../api/booths";
+import { useBoothDetail, useBooths } from "../api/booths";
 import { useBoothView } from "../api/views";
 
 import HomeBtn from "../features/Home/components/HomeBtn";
@@ -8,6 +8,7 @@ import BoothMap from "../features/Home/components/BoothMap";
 import TimeTable from "../features/Home/components/TimeTable";
 import BoothDetail from "../features/BoothDetail/components/BoothDetail";
 import RecommendedBooth from "../features/Recommend/components/RecommendedBooth";
+import uhheungLogoIcon from "../features/Home/assets/uhheung-logo-icon.svg";
 
 export default function HomePage() {
   const location = useLocation();
@@ -27,7 +28,13 @@ export default function HomePage() {
 
   useBoothView(pickedBoothId, tab === "booth");
 
-  const selectedBooth = booths.find((booth) => booth.id === selectedBoothId);
+  const selectedBoothSummary = booths.find(
+    (booth) => booth.id === selectedBoothId,
+  );
+  const { booth: selectedBooth } = useBoothDetail(
+    selectedBoothId,
+    selectedBoothSummary,
+  );
 
   const handleSelectBooth = (boothId) => {
     setSelectedBoothId(boothId);
@@ -57,18 +64,29 @@ export default function HomePage() {
     <div className="app-viewport relative flex min-h-0 flex-col overflow-hidden">
       <HomeBtn tab={tab} setTab={handleTabChange} />
 
-      <div
-        className="scrollbar-hide min-h-0 flex-1 overflow-y-auto overscroll-contain bg-[#141414] pb-[max(5rem,env(safe-area-inset-bottom))]"
-      >
-        {tab === "booth" ? (
-          <BoothMap
-            booths={booths}
-            setSelectedBoothId={handleSelectBooth}
-            selectedBoothId={selectedBoothId}
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-[#141414] pb-[max(5rem,env(safe-area-inset-bottom))]">
+        <div className="shrink-0">
+          {tab === "booth" ? (
+            <BoothMap
+              booths={booths}
+              setSelectedBoothId={handleSelectBooth}
+              selectedBoothId={selectedBoothId}
+            />
+          ) : (
+            <TimeTable />
+          )}
+        </div>
+
+        <div className="pointer-events-none flex min-h-0 w-full flex-1 items-center justify-center">
+          <img
+            src={uhheungLogoIcon}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            className="h-full max-h-[14.375rem] w-full max-w-[13rem] object-contain opacity-40"
           />
-        ) : (
-          <TimeTable />
-        )}
+        </div>
       </div>
 
       <div>

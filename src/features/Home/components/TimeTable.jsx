@@ -15,7 +15,7 @@ export default function TimeTable() {
   // ];
 
   return (
-    <div className="booth-scale mt-[0.7rem] flex w-full flex-col items-center justify-center px-[1rem] text-white">
+    <div className="mt-[0.7rem] flex w-full flex-col items-center justify-center px-[1rem] text-white">
       <div className="flex w-full max-w-[22.5rem] flex-row items-center gap-[1rem] px-[1.4rem] text-[#FF6000]">
         <img src={icon} className="w-[1.8125rem]" />
         <div className="text-[1.5rem]">Events</div>

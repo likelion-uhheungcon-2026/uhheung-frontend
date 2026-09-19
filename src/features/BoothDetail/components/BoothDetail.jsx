@@ -18,6 +18,9 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
   // 핸들 드래그 뒤 click 이벤트가 다시 상태를 바꾸는 것을 방지
   const didDrag = useRef(false);
 
+  // 중간 단계에서 다음 클릭이 향할 방향 (1: 위, -1: 아래)
+  const stageDirection = useRef(1);
+
   // 현재 스크롤 영역
   const scrollRef = useRef(null);
 
@@ -39,12 +42,18 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
   // ==============================
   const handlePointerDown = (e) => {
     const scrollElement = e.currentTarget;
+    const isHandle = scrollElement.tagName === "BUTTON";
+    const isInteractiveContent = Boolean(
+      e.target.closest(
+        'button, a, input, textarea, select, [role="button"], [role="menuitem"]',
+      ),
+    );
 
     startY.current = e.clientY;
     isDragging.current = true;
     didDrag.current = false;
 
-    if (sheetStage === 1 || scrollElement.tagName === "BUTTON") {
+    if (isHandle || (sheetStage < 2 && !isInteractiveContent)) {
       scrollElement.setPointerCapture(e.pointerId);
     }
   };
@@ -66,18 +75,22 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
     const isHandle = scrollElement.tagName === "BUTTON";
     const isAtTop = scrollElement.scrollTop <= 0;
 
-    if (diff > 50 && sheetStage === 1) {
+    if (diff > 50 && sheetStage < 2) {
       didDrag.current = true;
-      setSheetStage(2);
+      stageDirection.current = 1;
+      setSheetStage(sheetStage + 1);
 
       startY.current = null;
       isDragging.current = false;
       return;
     }
 
-    if ((isHandle || isAtTop) && diff < -50 && sheetStage === 2) {
+    const canDragDown = sheetStage === 1 || isHandle || isAtTop;
+
+    if (canDragDown && diff < -50 && sheetStage > 0) {
       didDrag.current = true;
-      setSheetStage(1);
+      stageDirection.current = -1;
+      setSheetStage(sheetStage - 1);
 
       startY.current = null;
       isDragging.current = false;
@@ -96,11 +109,30 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
       return;
     }
 
-    setSheetStage((prev) => (prev === 2 ? 1 : 2));
+    setSheetStage((prev) => {
+      if (prev === 0) {
+        stageDirection.current = 1;
+        return 1;
+      }
+
+      if (prev === 2) {
+        stageDirection.current = -1;
+        return 1;
+      }
+
+      return prev + stageDirection.current;
+    });
   };
 
   const sheetHeightClass =
-    sheetStage === 2 ? "sheet-stage-expanded" : "sheet-stage-middle";
+    sheetStage === 2
+      ? "sheet-stage-expanded"
+      : sheetStage === 1
+        ? "sheet-stage-middle"
+        : "sheet-stage-collapsed";
+
+  const sheetStageLabel =
+    sheetStage === 2 ? "전체" : sheetStage === 1 ? "중간" : "접힘";
 
   return (
     <div
@@ -132,7 +164,7 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
           style={{ touchAction: "none" }}
-          aria-label={`상세 정보 패널: ${sheetStage === 2 ? "전체" : "중간"} 단계`}
+          aria-label={`상세 정보 패널: ${sheetStageLabel} 단계`}
           className="
             w-full
             h-[2rem]

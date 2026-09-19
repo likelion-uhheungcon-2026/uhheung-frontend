@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { compareBoothsByRecommendation } from "../../../utils/boothRankings";
 
 export default function BigCard({ booths, onBoothClick }) {
-  const recommendBooths = booths.filter(
-    (booth) => booth.id >= 1 && booth.id <= 5,
+  const recommendBooths = useMemo(
+    () => [...booths].sort(compareBoothsByRecommendation).slice(0, 5),
+    [booths],
   );
 
   const [current, setCurrent] = useState(0);
@@ -20,7 +22,8 @@ export default function BigCard({ booths, onBoothClick }) {
 
   if (recommendBooths.length === 0) return null;
 
-  const booth = recommendBooths[current];
+  const currentIndex = current % recommendBooths.length;
+  const booth = recommendBooths[currentIndex];
 
   return (
     <div
@@ -39,6 +42,8 @@ export default function BigCard({ booths, onBoothClick }) {
       <img
         src={booth.serviceimage}
         alt={booth.name}
+        loading="lazy"
+        decoding="async"
         className="
           absolute
           inset-0
@@ -70,7 +75,7 @@ export default function BigCard({ booths, onBoothClick }) {
           left-0
           w-full
           px-[1.1rem]
-          pb-[clamp(0.5rem,1.8vh,1rem)]
+          pb-[1.2rem]
           text-white
           z-10
           pointer-events-none
@@ -101,9 +106,9 @@ export default function BigCard({ booths, onBoothClick }) {
           z-20
         "
       >
-        {recommendBooths.map((_, index) => (
+        {recommendBooths.map((recommendBooth, index) => (
           <button
-            key={index}
+            key={recommendBooth.id}
             type="button"
             aria-label={`${index + 1}번째 추천 작품 보기`}
             onClick={(event) => {
@@ -115,7 +120,7 @@ export default function BigCard({ booths, onBoothClick }) {
               transition-[width,height,background-color]
               duration-300
               ${
-                current === index
+                currentIndex === index
                   ? "h-[0.375rem] w-[0.375rem] bg-[#FF6000]"
                   : "h-[0.25rem] w-[0.25rem] bg-[#8c8c8c]"
               }

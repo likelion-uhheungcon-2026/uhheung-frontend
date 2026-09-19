@@ -1,15 +1,10 @@
-export default function SmallCard({
-  title,
-  boothId,
-  booths,
-  onBoothClick,
-}) {
-  const booth = booths.find((b) => b.id === boothId);
+export default function SmallCard({ title, booth, onBoothClick }) {
+  if (!booth) return null;
 
   return (
     <button
       type="button"
-      onClick={() => onBoothClick(boothId)}
+      onClick={() => onBoothClick(booth.id)}
       aria-label={`${booth.name} 작품 상세 보기`}
       className="
         relative
@@ -26,6 +21,8 @@ export default function SmallCard({
       <img
         src={booth.serviceimage}
         alt=""
+        loading="lazy"
+        decoding="async"
         className="
           absolute
           inset-0
@@ -40,7 +37,7 @@ export default function SmallCard({
           absolute
     left-0
     right-0
-    -bottom-[0rem]
+    -bottom-[0.1rem]
     top-0
           bg-[linear-gradient(180deg,rgba(20,20,20,0)_50%,#141414_100%)]
         "
@@ -52,6 +49,7 @@ export default function SmallCard({
           bottom-0
           left-0
           w-full
+          flex
           px-[1.1rem]
           pb-[clamp(0.4rem,1.4vh,0.7rem)]
           text-white

@@ -2,17 +2,16 @@ import { useState } from "react";
 import SerchTab from "../features/ServiceList/components/SerchTab";
 import ServiceList from "../features/ServiceList/components/ServiceList";
 import { useBooths } from "../api/booths";
+import {
+  compareBoothsByName,
+  compareBoothsByPopularity,
+  compareBoothsByRecommendation,
+} from "../utils/boothRankings";
 
 const SORTERS = {
-  "이름 순": (a, b) => a.name.localeCompare(b.name, "ko") || a.id - b.id,
-  "인기 순": (a, b) =>
-    b.viewCount - a.viewCount ||
-    b.totalDurationMs - a.totalDurationMs ||
-    a.id - b.id,
-  "추천 순": (a, b) =>
-    b.recentViewCount - a.recentViewCount ||
-    b.viewCount - a.viewCount ||
-    a.id - b.id,
+  "이름 순": compareBoothsByName,
+  "인기 순": compareBoothsByPopularity,
+  "추천 순": compareBoothsByRecommendation,
 };
 
 export default function ServiceListPage() {

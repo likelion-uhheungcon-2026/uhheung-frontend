@@ -12,6 +12,8 @@ export default function MainCard({ booth, variant = "sheet" }) {
       <img
         src={booth.serviceimage}
         alt={`${booth.name} 서비스 화면`}
+        loading="lazy"
+        decoding="async"
         className="h-full w-full object-cover"
       />
 

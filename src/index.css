@@ -55,50 +55,15 @@ body {
   scrollbar-width: none;
 }
 
-.booth-scale {
-  transform-origin: top center;
-  transition: transform 0.3s ease;
-}
-
 .sheet-stage-collapsed {
   height: 5rem;
 }
 
 .sheet-stage-middle {
-  height: clamp(5rem, calc(100vh - 24.125rem), 28rem);
-  height: clamp(5rem, calc(100dvh - 24.125rem), 28rem);
+  height: 28rem;
 }
 
 .sheet-stage-expanded {
   height: calc(100vh - 4.15rem);
   height: calc(100dvh - 4.15rem);
-}
-
-@media (min-width: 768px) and (min-height: 700px) {
-  .sheet-stage-middle {
-    height: clamp(5rem, calc(100vh - 27.25rem), 28rem);
-    height: clamp(5rem, calc(100dvh - 27.25rem), 28rem);
-  }
-
-}
-
-@media (max-height: 46.25rem) {
-  .booth-scale {
-    transform: scale(0.87);
-  }
-
-  .booth-entrance-marker {
-    top: 6.7rem;
-    height: 4.35rem;
-  }
-
-  .booth-stage-marker {
-    top: 3.96rem;
-    height: 9.79rem;
-  }
-
-  .sheet-stage-middle {
-    height: clamp(5rem, calc(100vh - 21rem), 31rem);
-    height: clamp(5rem, calc(100dvh - 21rem), 31rem);
-  }
 }
