@@ -21,6 +21,7 @@ export default function ServiceListPage() {
 
   // 필터 상태 추가
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
   const filteredBooths = booths.filter((booth) => {
     const keyword = searchValue.toLowerCase();
@@ -34,7 +35,11 @@ export default function ServiceListPage() {
     const filterMatch =
       selectedFilters.length === 0 || selectedFilters.includes(booth.tag);
 
-    return searchMatch && filterMatch;
+    const categoryMatch =
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(booth.category);
+
+    return searchMatch && filterMatch && categoryMatch;
   }).sort(SORTERS[selectedMenu]);
 
   return (
@@ -47,6 +52,8 @@ export default function ServiceListPage() {
           setSearchValue={setSearchValue}
           selectedFilters={selectedFilters}
           setSelectedFilters={setSelectedFilters}
+          selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}
           selectedMenu={selectedMenu}
           setSelectedMenu={setSelectedMenu}
         />

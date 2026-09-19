@@ -11,28 +11,36 @@ const boothSections = [
     start: 0,
     end: 5,
     width: "w-[85%]",
-    color: "#FF781F",
+    color: "#E37E32",
+    overlayColor: "rgba(255, 96, 0, 0.05)",
+    backgroundColors: { odd: "#363636", even: "#262626" },
   },
   {
     title: "WELLNESS",
     start: 5,
     end: 10,
     width: "w-[85%]",
-    color: "#F2E6CF",
+    color: "#F9EBC4",
+    overlayColor: "rgba(255, 235, 191, 0.05)",
+    backgroundColors: { odd: "#363636", even: "#262626" },
   },
   {
     title: "CARE",
     start: 10,
     end: 15,
     width: "w-[85%]",
-    color: "#FF9A62",
+    color: "#E16A2D",
+    overlayColor: "rgba(255, 96, 0, 0.05)",
+    backgroundColors: { odd: "#363636", even: "#262626" },
   },
   {
     title: "EXPERIENCE",
     start: 15,
     end: 21,
     width: "w-full",
-    color: "#EED56A",
+    color: "#EFD07D",
+    overlayColor: "rgba(255, 235, 191, 0.05)",
+    backgroundColors: { odd: "#363636", even: "#262626" },
   },
 ];
 
@@ -116,6 +124,12 @@ export default function BoothMap({
                     <Booth
                       key={booth.id}
                       booth={booth}
+                      backgroundColor={
+                        booth.id % 2 === 0
+                          ? section.backgroundColors.even
+                          : section.backgroundColors.odd
+                      }
+                      overlayColor={section.overlayColor}
                       selectedBoothId={selectedBoothId}
                       setSelectedBoothId={setSelectedBoothId}
                     />

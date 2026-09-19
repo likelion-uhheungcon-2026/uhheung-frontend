@@ -17,10 +17,10 @@ export default function HomePage() {
   const [tab, setTab] = useState(() =>
     location.state?.tab === "time" ? "time" : "booth",
   );
-  const [sheetStage, setSheetStage] = useState(1);
+  const [sheetStage, setSheetStage] = useState(0);
 
   const [selectedBoothId, setSelectedBoothId] = useState(
-    location.state?.boothId ?? 1,
+    location.state?.boothId ?? null,
   );
 
   const [pickedBoothId, setPickedBoothId] = useState(null);
@@ -38,13 +38,14 @@ export default function HomePage() {
   const handleSelectBooth = (boothId) => {
     setSelectedBoothId(boothId);
     setPickedBoothId(boothId);
+    setSheetStage(1);
   };
 
   const handleTabChange = (nextTab) => {
     if (nextTab === tab) return;
 
     setTab(nextTab);
-    setSheetStage(1);
+    setSheetStage(0);
     navigate("/home", {
       replace: true,
       state: { ...(location.state ?? {}), tab: nextTab },
@@ -79,7 +80,7 @@ export default function HomePage() {
       </div>
 
       <div>
-        {tab === "booth" ? (
+        {tab === "booth" && selectedBooth ? (
           <BoothDetail
             booth={selectedBooth}
             sheetStage={sheetStage}

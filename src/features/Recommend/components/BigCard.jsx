@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { compareBoothsByRecommendation } from "../../../utils/boothRankings";
+import { useCarousel } from "../../../hooks/useCarousel";
 
 export default function BigCard({ booths, onBoothClick }) {
   const recommendBooths = useMemo(
@@ -7,23 +8,14 @@ export default function BigCard({ booths, onBoothClick }) {
     [booths],
   );
 
-  const [current, setCurrent] = useState(0);
-
-  // 3초마다 자동 슬라이드
-  useEffect(() => {
-    if (recommendBooths.length === 0) return;
-
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % recommendBooths.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [recommendBooths.length]);
+  const carousel = useCarousel({
+    length: recommendBooths.length,
+    resetKey: recommendBooths.map((booth) => booth.id).join(","),
+  });
 
   if (recommendBooths.length === 0) return null;
 
-  const currentIndex = current % recommendBooths.length;
-  const booth = recommendBooths[currentIndex];
+  const booth = recommendBooths[carousel.currentIndex];
 
   return (
     <div
@@ -63,7 +55,18 @@ export default function BigCard({ booths, onBoothClick }) {
 
       <button
         type="button"
-        onClick={() => onBoothClick(booth.id)}
+        onPointerDown={carousel.pointerHandlers.onPointerDown}
+        onPointerMove={carousel.pointerHandlers.onPointerMove}
+        onPointerUp={carousel.pointerHandlers.onPointerUp}
+        onPointerCancel={carousel.pointerHandlers.onPointerCancel}
+        onClick={(event) => {
+          if (carousel.consumeSwipe()) {
+            event.preventDefault();
+            return;
+          }
+          onBoothClick(booth.id);
+        }}
+        style={{ touchAction: "pan-y" }}
         aria-label={`${booth.name} 작품 상세 보기`}
         className="absolute inset-0 z-10 cursor-pointer"
       />
@@ -111,21 +114,22 @@ export default function BigCard({ booths, onBoothClick }) {
             key={recommendBooth.id}
             type="button"
             aria-label={`${index + 1}번째 추천 작품 보기`}
+            onPointerDown={(event) => event.stopPropagation()}
+            onPointerUp={(event) => event.stopPropagation()}
             onClick={(event) => {
               event.stopPropagation();
-              setCurrent(index);
+              carousel.selectIndex(index);
             }}
-            className={`
-              rounded-full
-              transition-[width,height,background-color]
-              duration-300
-              ${
-                currentIndex === index
+            className="flex h-[1.25rem] w-[0.9rem] touch-manipulation cursor-pointer items-center justify-center"
+          >
+            <span
+              className={`rounded-full transition-[width,height,background-color] duration-300 ${
+                carousel.currentIndex === index
                   ? "h-[0.375rem] w-[0.375rem] bg-[#FF6000]"
                   : "h-[0.25rem] w-[0.25rem] bg-[#8c8c8c]"
-              }
-            `}
-          />
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

@@ -16,6 +16,7 @@ export default function ServiceListItem({ booth }) {
         aspect-[11/13.25]
         rounded-[0.625rem]
         overflow-hidden
+        bg-black
         cursor-pointer
       "
     >
@@ -36,7 +37,10 @@ export default function ServiceListItem({ booth }) {
       <div
         className="
           absolute
-          inset-0
+          top-0
+          left-0
+          right-0
+          -bottom-[0.15rem]
           bg-[linear-gradient(180deg,rgba(0,0,0,0)_30.29%,rgba(0,0,0,0.86)_79.81%,#000_100%)]
         "
       />
@@ -46,25 +50,21 @@ export default function ServiceListItem({ booth }) {
           absolute
           top-[0.9rem]
           left-[0.7rem]
+          flex
+          gap-[0.35rem]
         "
       >
-        <div
-          className="
-            px-[0.5rem]
-            h-[1.5rem]
-            rounded-[0.3125rem]
-            bg-[rgba(0,0,0,0.8)]
-            flex
-            justify-center
-            items-center
-            text-[clamp(0.625rem,2vw,0.75rem)]
-            tracking-[0.04rem]
-            text-[#FF6000]
-            whitespace-nowrap
-          "
-        >
-          {booth.tag}
-        </div>
+        {booth.category && (
+          <div className="flex h-[1.5rem] items-center justify-center whitespace-nowrap rounded-[0.3125rem] bg-[rgba(0,0,0,0.8)] px-[0.5rem] text-[clamp(0.625rem,2vw,0.75rem)] tracking-[0.04rem] text-white">
+            {booth.category}
+          </div>
+        )}
+
+        {booth.tag && (
+          <div className="flex h-[1.5rem] items-center justify-center whitespace-nowrap rounded-[0.3125rem] bg-[rgba(0,0,0,0.8)] px-[0.5rem] text-[clamp(0.625rem,2vw,0.75rem)] tracking-[0.04rem] text-[#FF6000]">
+            {booth.tag}
+          </div>
+        )}
       </div>
 
       <div
@@ -78,7 +78,7 @@ export default function ServiceListItem({ booth }) {
           text-white
         "
       >
-        <div className="flex flex-wrap items-center gap-x-[0.35rem] gap-y-0">
+        <div className="flex flex-col items-start gap-[0.05rem]">
           <div className="text-[clamp(0.8rem,2.5vw,0.9375rem)] font-semibold leading-tight">
             {booth.name}
           </div>
