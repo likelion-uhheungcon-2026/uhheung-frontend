@@ -5,8 +5,38 @@ import white from "../assets/link-white.svg";
 import down from "../assets/down-icon.svg";
 import github from "../assets/github-logo.png";
 import figma from "../assets/figma-logo.svg";
+import notion from "../assets/notion-logo.svg";
 import exchangeDefault from "../assets/exchange-default.svg";
 import exchangeClick from "../assets/exchange-click.svg";
+
+function normalizeLinks(links, legacyLink) {
+  const values = [
+    ...(Array.isArray(links) ? links : []),
+    legacyLink,
+  ].filter((link) => typeof link === "string" && link.trim());
+
+  return [...new Set(values.map((link) => link.trim()))];
+}
+
+function createLinkItems(links, label, icon, iconClassName) {
+  return links.map((href, index) => ({
+    href,
+    label: links.length > 1 ? `${label} ${index + 1}` : label,
+    icon,
+    iconClassName,
+  }));
+}
+
+function isNotionLink(link) {
+  try {
+    const hostname = new URL(link).hostname.toLowerCase();
+    return hostname === "notion.so" || hostname.endsWith(".notion.so") ||
+      hostname === "notion.site" || hostname.endsWith(".notion.site") ||
+      hostname === "notion.com" || hostname.endsWith(".notion.com");
+  } catch {
+    return link.toLowerCase().includes("notion");
+  }
+}
 
 export default function Links({
   booth,
@@ -14,6 +44,45 @@ export default function Links({
   setIsRefactoringReport,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const serviceLinks = normalizeLinks(booth.servicelinks, booth.servicelink);
+  const githubLinks = normalizeLinks(booth.githublinks, booth.githublink);
+  const figmaLinks = normalizeLinks(booth.figmalinks, booth.figmalink);
+  const etcLinks = normalizeLinks(booth.etclinks);
+  const notionLinks = etcLinks.filter(isNotionLink);
+  const otherLinks = etcLinks.filter((link) => !isNotionLink(link));
+
+  const linkItems = [
+    ...createLinkItems(
+      serviceLinks,
+      "서비스 링크",
+      orange,
+      "w-[1rem] h-[1rem] object-contain",
+    ),
+    ...createLinkItems(
+      figmaLinks,
+      "Figma",
+      figma,
+      "w-[1rem] h-[1rem] object-contain",
+    ),
+    ...createLinkItems(
+      githubLinks,
+      "GitHub",
+      github,
+      "w-[1.1rem] h-[1.1rem] object-contain bg-white rounded-full",
+    ),
+    ...createLinkItems(
+      notionLinks,
+      "Notion",
+      notion,
+      "w-[1rem] h-[1rem] object-contain",
+    ),
+    ...createLinkItems(
+      otherLinks,
+      "기타 링크",
+      orange,
+      "w-[1rem] h-[1rem] object-contain",
+    ),
+  ];
 
   return (
     <div className="w-full mt-[0.31rem] flex items-center gap-[0.5rem]">
@@ -70,101 +139,33 @@ export default function Links({
               z-50
             "
             role="menu"
+            onPointerDown={(event) => event.stopPropagation()}
           >
-            {booth.servicelink && (
-              <a
-                href={booth.servicelink}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
-                className="
-                  flex
-                  items-center
-                  gap-[0.5rem]
-                  px-[1rem]
-                  py-[0.75rem]
-                  text-[0.875rem]
-                  transition-colors
-                  hover:text-[#FF6000]
-                "
-                role="menuitem"
-              >
-                <img
-                  src={orange}
-                  alt=""
-                  className=" w-[1rem] h-[1rem] object-contain"
-                />
-                <span>서비스 링크</span>
-              </a>
-            )}
-
-            {booth.servicelink && (booth.figmalink || booth.githublink) && (
-              <div className="h-px bg-[#2A2A2A]" />
-            )}
-
-            {booth.figmalink && (
-              <a
-                href={booth.figmalink}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
-                className="
-                  flex
-                  items-center
-                  gap-[0.5rem]
-                  px-[1rem]
-                  py-[0.75rem]
-                  text-[0.875rem]
-                  transition-colors
-                  hover:text-[#FF6000]
-                "
-                role="menuitem"
-              >
-                <img
-                  src={figma}
-                  alt="Figma"
-                  className="w-[1rem] h-[1rem] object-contain"
-                />
-                <span>Figma</span>
-              </a>
-            )}
-
-            {booth.figmalink && booth.githublink && (
-              <div className="h-px bg-[#2A2A2A]" />
-            )}
-
-            {booth.githublink && (
-              <a
-                href={booth.githublink}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
-                className="
-                  flex
-                  items-center
-                  gap-[0.5rem]
-                  px-[1rem]
-                  py-[0.75rem]
-                  text-[0.875rem]
-                  transition-colors
-                  hover:text-[#FF6000]
-                "
-                role="menuitem"
-              >
-                <img
-                  src={github}
-                  alt="GitHub"
-                  className="
-                    w-[1.1rem]
-                    h-[1.1rem]
-                    object-contain
-                    bg-white
-                    rounded-full
-                  "
-                />
-
-                <span>GitHub</span>
-              </a>
+            {linkItems.length > 0 ? (
+              linkItems.map((item, index) => (
+                <div key={`${item.href}-${item.label}`}>
+                  {index > 0 && <div className="h-px bg-[#2A2A2A]" />}
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center gap-[0.5rem] px-[1rem] py-[0.75rem] text-[0.875rem] transition-colors hover:text-[#FF6000]"
+                    role="menuitem"
+                  >
+                    <img
+                      src={item.icon}
+                      alt=""
+                      className={item.iconClassName}
+                    />
+                    <span>{item.label}</span>
+                  </a>
+                </div>
+              ))
+            ) : (
+              <div className="px-[1rem] py-[0.75rem] text-[0.75rem] text-[#9A9A9A]">
+                등록된 링크가 없습니다.
+              </div>
             )}
           </div>
         )}
