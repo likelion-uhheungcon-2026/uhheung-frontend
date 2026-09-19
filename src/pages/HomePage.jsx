@@ -38,7 +38,7 @@ export default function HomePage() {
   const handleSelectBooth = (boothId) => {
     setSelectedBoothId(boothId);
     setPickedBoothId(boothId);
-    setSheetStage(1);
+    setSheetStage(boothId === null ? 0 : 1);
   };
 
   const handleTabChange = (nextTab) => {

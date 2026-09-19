@@ -1,6 +1,10 @@
 import ServiceListItem from "./ServiceListItem";
 
-export default function ServiceList({ booths }) {
+export default function ServiceList({
+  booths,
+  selectedFilters,
+  selectedCategories,
+}) {
   return (
     <div
       className="
@@ -12,7 +16,12 @@ export default function ServiceList({ booths }) {
       "
     >
       {booths.map((booth) => (
-        <ServiceListItem key={booth.id} booth={booth} />
+        <ServiceListItem
+          key={booth.id}
+          booth={booth}
+          isTagSelected={selectedFilters.includes(booth.tag)}
+          isCategorySelected={selectedCategories.includes(booth.category)}
+        />
       ))}
     </div>
   );

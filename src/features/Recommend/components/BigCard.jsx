@@ -28,6 +28,8 @@ export default function BigCard({ booths, onBoothClick }) {
     flex-1
     rounded-[0.625rem]
     overflow-hidden
+    isolate
+    bg-[#141414]
     cursor-pointer
   "
     >
@@ -42,13 +44,18 @@ export default function BigCard({ booths, onBoothClick }) {
           w-full
           h-full
           object-cover
+          scale-[1.01]
         "
       />
 
       <div
         className="
           absolute
-          inset-0
+          -left-[0.35rem]
+          -right-[0.35rem]
+          top-[0.15rem]
+          -bottom-[0.35rem]
+          pointer-events-none
           bg-[linear-gradient(180deg,rgba(20,20,20,0)_50%,#141414_100%)]
         "
       />

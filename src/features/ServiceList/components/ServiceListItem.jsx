@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
-export default function ServiceListItem({ booth }) {
+export default function ServiceListItem({
+  booth,
+  isTagSelected,
+  isCategorySelected,
+}) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -17,6 +21,7 @@ export default function ServiceListItem({ booth }) {
         rounded-[0.625rem]
         overflow-hidden
         bg-black
+        isolate
         cursor-pointer
       "
     >
@@ -31,16 +36,18 @@ export default function ServiceListItem({ booth }) {
           w-full
           h-full
           object-cover
+          scale-[1.01]
         "
       />
 
       <div
         className="
           absolute
-          top-0
-          left-0
-          right-0
-          -bottom-[0.15rem]
+          -left-[0.35rem]
+          -right-[0.35rem]
+          top-[0.15rem]
+          -bottom-[0.35rem]
+          pointer-events-none
           bg-[linear-gradient(180deg,rgba(0,0,0,0)_30.29%,rgba(0,0,0,0.86)_79.81%,#000_100%)]
         "
       />
@@ -55,13 +62,21 @@ export default function ServiceListItem({ booth }) {
         "
       >
         {booth.category && (
-          <div className="flex h-[1.5rem] items-center justify-center whitespace-nowrap rounded-[0.3125rem] bg-[rgba(0,0,0,0.8)] px-[0.5rem] text-[clamp(0.625rem,2vw,0.75rem)] tracking-[0.04rem] text-white">
+          <div
+            className={`flex h-[1.5rem] items-center justify-center whitespace-nowrap rounded-[0.3125rem] bg-[rgba(0,0,0,0.8)] px-[0.5rem] text-[clamp(0.625rem,2vw,0.75rem)] tracking-[0.04rem] ${
+              isCategorySelected ? "text-[#FF6000]" : "text-white"
+            }`}
+          >
             {booth.category}
           </div>
         )}
 
         {booth.tag && (
-          <div className="flex h-[1.5rem] items-center justify-center whitespace-nowrap rounded-[0.3125rem] bg-[rgba(0,0,0,0.8)] px-[0.5rem] text-[clamp(0.625rem,2vw,0.75rem)] tracking-[0.04rem] text-[#FF6000]">
+          <div
+            className={`flex h-[1.5rem] items-center justify-center whitespace-nowrap rounded-[0.3125rem] bg-[rgba(0,0,0,0.8)] px-[0.5rem] text-[clamp(0.625rem,2vw,0.75rem)] tracking-[0.04rem] ${
+              isTagSelected ? "text-[#FF6000]" : "text-white"
+            }`}
+          >
             {booth.tag}
           </div>
         )}

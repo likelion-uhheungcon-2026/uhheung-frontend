@@ -24,11 +24,20 @@ function getBoothImages(booth) {
     .map(getImageUrl)
     .filter(Boolean);
 
+  if (Number(booth.id) === 3) {
+    return images[1] ? [images[1]] : images.slice(0, 1);
+  }
+
   return [...new Set(images)];
 }
 
-export default function MainCard({ booth, variant = "sheet" }) {
+export default function MainCard({
+  booth,
+  variant = "sheet",
+  isExpanded = false,
+}) {
   const isPage = variant === "page";
+  const usesFourThreeRatio = isPage || isExpanded;
   const images = useMemo(() => getBoothImages(booth), [booth]);
   const carousel = useCarousel({
     length: images.length,
@@ -41,10 +50,12 @@ export default function MainCard({ booth, variant = "sheet" }) {
       data-carousel={hasMultipleImages ? "true" : undefined}
       {...(hasMultipleImages ? carousel.pointerHandlers : {})}
       style={{ touchAction: hasMultipleImages ? "pan-y" : undefined }}
-      className={`relative w-full overflow-hidden ${
+      className={`relative isolate w-full shrink-0 overflow-hidden bg-black ${
+        usesFourThreeRatio ? "aspect-[4/3]" : "h-[12.3125rem]"
+      } ${
         isPage
-          ? "h-[15rem] rounded-[0.625rem]"
-          : "h-[12.3125rem] rounded-t-[0.625rem]"
+          ? "rounded-[0.625rem]"
+          : "rounded-t-[0.625rem]"
       } ${hasMultipleImages ? "cursor-grab active:cursor-grabbing" : ""}`}
     >
       <div
@@ -52,20 +63,21 @@ export default function MainCard({ booth, variant = "sheet" }) {
         style={{ transform: `translateX(-${carousel.currentIndex * 100}%)` }}
       >
         {images.map((image, index) => (
-          <img
-            key={image}
-            src={image}
-            alt={`${booth.name} 서비스 화면 ${index + 1}`}
-            loading="lazy"
-            decoding="async"
-            draggable="false"
-            className="h-full w-full shrink-0 object-cover"
-          />
+          <div key={image} className="h-full w-full shrink-0 overflow-hidden">
+            <img
+              src={image}
+              alt={`${booth.name} 서비스 화면 ${index + 1}`}
+              loading="lazy"
+              decoding="async"
+              draggable="false"
+              className="block h-full w-full scale-[1.01] object-cover"
+            />
+          </div>
         ))}
       </div>
 
       {/* 아래쪽 어둡게 그라데이션 */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_41.3%,#000_100%)]" />
+      <div className="pointer-events-none absolute -left-[0.35rem] -right-[0.35rem] top-[0.15rem] -bottom-[0.35rem] bg-[linear-gradient(180deg,rgba(0,0,0,0)_41.3%,#000_100%)]" />
 
       {hasMultipleImages && (
         <div className="absolute bottom-[0.25rem] left-1/2 z-20 flex -translate-x-1/2 items-center">

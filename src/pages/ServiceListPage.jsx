@@ -65,7 +65,11 @@ export default function ServiceListPage() {
               {error ? "부스 정보를 불러오지 못했습니다." : "불러오는 중..."}
             </p>
           ) : (
-            <ServiceList booths={filteredBooths} />
+            <ServiceList
+              booths={filteredBooths}
+              selectedFilters={selectedFilters}
+              selectedCategories={selectedCategories}
+            />
           )}
         </div>
       </div>

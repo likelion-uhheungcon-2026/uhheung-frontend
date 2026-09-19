@@ -231,7 +231,7 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
           cursor-grab
         `}
       >
-        <MainCard booth={booth} />
+        <MainCard booth={booth} isExpanded={sheetStage === 2} />
 
         <Links
           booth={booth}

@@ -10,9 +10,11 @@ export default function Booth({
   return (
     <button
       type="button"
-      onClick={() => setSelectedBoothId(booth.id)}
+      onClick={() => setSelectedBoothId(isSelected ? null : booth.id)}
       aria-pressed={isSelected}
-      aria-label={`${booth.id}번 ${booth.team} ${booth.name}`}
+      aria-label={`${booth.id}번 ${booth.team} ${booth.name}${
+        isSelected ? " 선택 해제" : " 선택"
+      }`}
       style={{
         backgroundColor,
         backgroundImage: `linear-gradient(${overlayColor}, ${overlayColor})`,
