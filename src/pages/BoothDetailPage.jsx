@@ -9,7 +9,7 @@ import {
 import Content from "../features/BoothDetail/components/Content";
 import Links from "../features/BoothDetail/components/Links";
 import MainCard from "../features/BoothDetail/components/MainCard";
-import { useBooths } from "../api/booths";
+import { useBoothDetail } from "../api/booths";
 import { useBoothView } from "../api/views";
 
 export default function BoothDetailPage() {
@@ -17,13 +17,10 @@ export default function BoothDetailPage() {
   const location = useLocation();
   const { boothId } = useParams();
   const [isRefactoringReport, setIsRefactoringReport] = useState(false);
-  const { booths, isLoading, error } = useBooths();
   const viewedBoothId = Number(boothId);
+  const { booth, isLoading, error } = useBoothDetail(viewedBoothId);
 
-  useBoothView(
-    viewedBoothId,
-    booths.some((item) => item.id === viewedBoothId),
-  );
+  useBoothView(viewedBoothId, Boolean(booth));
 
   if (isLoading || error) {
     return (
@@ -32,8 +29,6 @@ export default function BoothDetailPage() {
       </div>
     );
   }
-
-  const booth = booths.find((item) => item.id === Number(boothId));
 
   if (!booth) {
     return <Navigate to="/servicelist" replace />;

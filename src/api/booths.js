@@ -9,6 +9,15 @@ let cachedBooths = null;
 let cachedAt = 0;
 let pendingRequest = null;
 const listeners = new Set();
+const detailCache = new Map();
+const detailRequests = new Map();
+
+function normalizeBooth(booth) {
+  return {
+    ...booth,
+    serviceimage: booth.serviceimage ?? lionLogo,
+  };
+}
 
 function loadBooths() {
   if (!pendingRequest) {
@@ -20,10 +29,7 @@ function loadBooths() {
         return res.json();
       })
       .then((data) => {
-        cachedBooths = data.items.map((booth) => ({
-          ...booth,
-          serviceimage: booth.serviceimage ?? lionLogo,
-        }));
+        cachedBooths = data.items.map(normalizeBooth);
         cachedAt = Date.now();
         pendingRequest = null;
         listeners.forEach((listener) => listener(cachedBooths));
@@ -36,6 +42,34 @@ function loadBooths() {
   }
 
   return pendingRequest;
+}
+
+function loadBoothDetail(boothId) {
+  if (detailCache.has(boothId)) {
+    return Promise.resolve(detailCache.get(boothId));
+  }
+
+  if (!detailRequests.has(boothId)) {
+    const request = fetch(`${API_BASE}/booths/${boothId}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`부스 상세 정보를 불러오지 못했습니다. (${res.status})`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        const booth = normalizeBooth(data);
+        detailCache.set(boothId, booth);
+        return booth;
+      })
+      .finally(() => {
+        detailRequests.delete(boothId);
+      });
+
+    detailRequests.set(boothId, request);
+  }
+
+  return detailRequests.get(boothId);
 }
 
 export function updateBoothStats(stats) {
@@ -97,4 +131,45 @@ export function useBooths() {
   }, []);
 
   return { booths, isLoading, error };
+}
+
+export function useBoothDetail(boothId, fallbackBooth = null) {
+  const normalizedBoothId = Number(boothId);
+  const [loadedBooth, setLoadedBooth] = useState(
+    () => detailCache.get(normalizedBoothId) ?? null,
+  );
+  const [requestError, setRequestError] = useState(null);
+
+  const cachedDetail = detailCache.get(normalizedBoothId) ?? null;
+  const currentLoadedBooth =
+    loadedBooth?.id === normalizedBoothId ? loadedBooth : null;
+  const currentError =
+    requestError?.boothId === normalizedBoothId ? requestError.error : null;
+  const detailBooth = currentLoadedBooth ?? cachedDetail;
+
+  useEffect(() => {
+    if (!Number.isInteger(normalizedBoothId) || normalizedBoothId <= 0) return;
+
+    let ignore = false;
+
+    loadBoothDetail(normalizedBoothId)
+      .then((booth) => {
+        if (!ignore) setLoadedBooth(booth);
+      })
+      .catch((error) => {
+        if (!ignore) {
+          setRequestError({ boothId: normalizedBoothId, error });
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [normalizedBoothId]);
+
+  return {
+    booth: detailBooth ?? fallbackBooth,
+    isLoading: !detailBooth && !fallbackBooth && !currentError,
+    error: currentError,
+  };
 }

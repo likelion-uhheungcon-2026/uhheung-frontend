@@ -1,8 +1,13 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SmallCard from "./SmallCard";
 import BigCard from "./BigCard";
+import {
+  compareBoothsByPopularity,
+  compareBoothsByViewingTime,
+  getFirstBooth,
+} from "../../../utils/boothRankings";
 
 export default function RecommendedBooth({
   booths,
@@ -14,6 +19,14 @@ export default function RecommendedBooth({
   const isDragging = useRef(false);
   const didDrag = useRef(false);
   const recommendedStage = sheetStage > 0 ? 1 : 0;
+  const mostViewedBooth = useMemo(
+    () => getFirstBooth(booths, compareBoothsByPopularity),
+    [booths],
+  );
+  const longestViewedBooth = useMemo(
+    () => getFirstBooth(booths, compareBoothsByViewingTime),
+    [booths],
+  );
 
   const handleClick = () => {
     navigate("/servicelist");
@@ -122,15 +135,13 @@ export default function RecommendedBooth({
         <div className="flex w-full min-h-0 max-h-[9.96875rem] flex-1 justify-center gap-[0.5rem]">
           <SmallCard
             title="최다 조회수"
-            boothId={1} // 하드코딩
-            booths={booths}
+            booth={mostViewedBooth}
             onBoothClick={handleBoothClick}
           />
 
           <SmallCard
             title="최고 조회시간"
-            boothId={2} // 하드코딩
-            booths={booths}
+            booth={longestViewedBooth}
             onBoothClick={handleBoothClick}
           />
         </div>
