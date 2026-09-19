@@ -5,7 +5,7 @@ import white from "../assets/link-white.svg";
 import down from "../assets/down-icon.svg";
 import github from "../assets/github-logo.png";
 import figma from "../assets/figma-logo.svg";
-import notion from "../assets/notion-logo.svg";
+import notion from "../assets/notion-logo.png";
 import exchangeDefault from "../assets/exchange-default.svg";
 import exchangeClick from "../assets/exchange-click.svg";
 
