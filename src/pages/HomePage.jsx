@@ -8,7 +8,6 @@ import BoothMap from "../features/Home/components/BoothMap";
 import TimeTable from "../features/Home/components/TimeTable";
 import BoothDetail from "../features/BoothDetail/components/BoothDetail";
 import RecommendedBooth from "../features/Recommend/components/RecommendedBooth";
-import uhheungLogoIcon from "../features/Home/assets/uhheung-logo-icon.svg";
 
 export default function HomePage() {
   const location = useLocation();
@@ -77,16 +76,6 @@ export default function HomePage() {
           )}
         </div>
 
-        <div className="pointer-events-none flex min-h-0 w-full flex-1 items-center justify-center">
-          <img
-            src={uhheungLogoIcon}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-            className="h-full max-h-[14.375rem] w-full max-w-[13rem] object-contain opacity-40"
-          />
-        </div>
       </div>
 
       <div>
