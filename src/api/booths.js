@@ -15,6 +15,8 @@ const detailRequests = new Map();
 function normalizeBooth(booth) {
   return {
     ...booth,
+    category:
+      typeof booth.category === "string" ? booth.category.toUpperCase() : "",
     serviceimage: booth.serviceimage ?? lionLogo,
   };
 }

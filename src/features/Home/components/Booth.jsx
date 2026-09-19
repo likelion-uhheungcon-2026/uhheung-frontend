@@ -1,4 +1,10 @@
-export default function Booth({ booth, selectedBoothId, setSelectedBoothId }) {
+export default function Booth({
+  booth,
+  backgroundColor,
+  overlayColor,
+  selectedBoothId,
+  setSelectedBoothId,
+}) {
   const isSelected = selectedBoothId === booth.id;
 
   return (
@@ -7,20 +13,24 @@ export default function Booth({ booth, selectedBoothId, setSelectedBoothId }) {
       onClick={() => setSelectedBoothId(booth.id)}
       aria-pressed={isSelected}
       aria-label={`${booth.id}번 ${booth.team} ${booth.name}`}
+      style={{
+        backgroundColor,
+        backgroundImage: `linear-gradient(${overlayColor}, ${overlayColor})`,
+      }}
       className={`
         font-sbaggro flex h-[3rem] w-[2.7rem] min-w-0 cursor-pointer
         flex-col items-center justify-center overflow-hidden rounded-[0.32rem]
         border-2  text-center transition-colors duration-200
         ${
           isSelected
-            ? "border-[#FF6000] bg-[#302A27]"
-            : "border-transparent bg-[#3B3735]"
+            ? "border-[#E16A2D]"
+            : "border-transparent"
         }
       `}
     >
       <span
         className={`text-[1rem] font-light leading-none ${
-          isSelected ? "text-[#FF6000]" : "text-white"
+          isSelected ? "text-[#E16A2D]" : "text-white"
         }`}
       >
         {booth.id}
@@ -28,7 +38,7 @@ export default function Booth({ booth, selectedBoothId, setSelectedBoothId }) {
 
       <span
         className={`px-[0.2rem] w-full truncate text-[clamp(0.28rem,1.25vw,0.34rem)] font-light leading-tight ${
-          isSelected ? "text-[#FF6000]" : "text-white"
+          isSelected ? "text-[#E16A2D]" : "text-white"
         }`}
       >
         {booth.team}
@@ -36,7 +46,7 @@ export default function Booth({ booth, selectedBoothId, setSelectedBoothId }) {
 
       <span
         className={`mt-[0.1rem] w-full truncate text-[clamp(0.31rem,1.45vw,0.39rem)] font-medium leading-tight ${
-          isSelected ? "text-[#FF6000]" : "text-white"
+          isSelected ? "text-[#E16A2D]" : "text-white"
         }`}
       >
         {booth.name}

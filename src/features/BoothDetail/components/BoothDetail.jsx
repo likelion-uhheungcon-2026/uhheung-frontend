@@ -11,6 +11,8 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
 
   // 드래그 시작 위치
   const startY = useRef(null);
+  const startX = useRef(null);
+  const startedInCarousel = useRef(false);
 
   // 드래그 중인지 확인
   const isDragging = useRef(false);
@@ -19,7 +21,7 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
   const didDrag = useRef(false);
 
   // 중간 단계에서 다음 클릭이 향할 방향 (1: 위, -1: 아래)
-  const stageDirection = useRef(1);
+  const [stageDirection, setStageDirection] = useState(1);
 
   // 현재 스크롤 영역
   const scrollRef = useRef(null);
@@ -45,11 +47,13 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
     const isHandle = scrollElement.tagName === "BUTTON";
     const isInteractiveContent = Boolean(
       e.target.closest(
-        'button, a, input, textarea, select, [role="button"], [role="menuitem"]',
+        'button, a, input, textarea, select, [role="button"], [role="menuitem"], [data-carousel]',
       ),
     );
 
     startY.current = e.clientY;
+    startX.current = e.clientX;
+    startedInCarousel.current = Boolean(e.target.closest("[data-carousel]"));
     isDragging.current = true;
     didDrag.current = false;
 
@@ -69,6 +73,11 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
     // 위로 이동하면 양수
     // 아래로 이동하면 음수
     const diff = startY.current - currentY;
+    const diffX = startX.current - e.clientX;
+
+    if (startedInCarousel.current && Math.abs(diffX) > Math.abs(diff)) {
+      return;
+    }
 
     const scrollElement = e.currentTarget;
 
@@ -77,7 +86,7 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
 
     if (diff > 50 && sheetStage < 2) {
       didDrag.current = true;
-      stageDirection.current = 1;
+      setStageDirection(1);
       setSheetStage(sheetStage + 1);
 
       startY.current = null;
@@ -89,7 +98,7 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
 
     if (canDragDown && diff < -50 && sheetStage > 0) {
       didDrag.current = true;
-      stageDirection.current = -1;
+      setStageDirection(-1);
       setSheetStage(sheetStage - 1);
 
       startY.current = null;
@@ -100,6 +109,8 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
   // 드래그 종료
   const handlePointerUp = () => {
     startY.current = null;
+    startX.current = null;
+    startedInCarousel.current = false;
     isDragging.current = false;
   };
 
@@ -111,16 +122,16 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
 
     setSheetStage((prev) => {
       if (prev === 0) {
-        stageDirection.current = 1;
+        setStageDirection(1);
         return 1;
       }
 
       if (prev === 2) {
-        stageDirection.current = -1;
+        setStageDirection(-1);
         return 1;
       }
 
-      return prev + stageDirection.current;
+      return prev + stageDirection;
     });
   };
 
@@ -133,6 +144,11 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
 
   const sheetStageLabel =
     sheetStage === 2 ? "전체" : sheetStage === 1 ? "중간" : "접힘";
+
+  const sheetMotionClass =
+    sheetStage === 1 && stageDirection === 1
+      ? "sheet-slide-up"
+      : "";
 
   return (
     <div
@@ -149,9 +165,10 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
         px-[1.31rem]
         text-white
         transition-all
-        duration-300
-        ease-in-out
+        duration-500
+        ease-[cubic-bezier(0.22,1,0.36,1)]
         ${sheetHeightClass}
+        ${sheetMotionClass}
       `}
     >
       {/* 헤더 */}

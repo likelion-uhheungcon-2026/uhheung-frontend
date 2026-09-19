@@ -15,6 +15,8 @@ export default function SerchTab({
   setSearchValue,
   selectedFilters,
   setSelectedFilters,
+  selectedCategories,
+  setSelectedCategories,
   selectedMenu,
   setSelectedMenu,
 }) {
@@ -192,6 +194,8 @@ export default function SerchTab({
           <FilterBox
             selected={selectedFilters}
             setSelected={setSelectedFilters}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
           />
         </div>
       )}

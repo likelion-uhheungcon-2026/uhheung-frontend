@@ -113,7 +113,7 @@ export default function RecommendedBooth({
 
       <div className="relative flex h-[2.5rem] w-full shrink-0 items-start justify-center">
         <h2 className="pt-[0.08rem] font-sbaggro text-[1.3rem] leading-none">
-          실시간 추천
+          실시간 추천 작품
         </h2>
 
         <button

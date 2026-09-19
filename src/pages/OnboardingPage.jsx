@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
 import backgroundImage from "../features/Onboarding/assets/bg-img.svg";
-import backgroundContent from "../features/Onboarding/assets/bg-content.svg";
+import backgroundContent from "../features/Onboarding/assets/bg-content.png";
 
 export default function OnboardingPage() {
   const navigate = useNavigate();
 
   const handleClick = () => {
     localStorage.setItem("visited", "true");
+
     navigate("/home", { replace: true });
   };
 
@@ -24,7 +25,7 @@ export default function OnboardingPage() {
         <img
           src={backgroundContent}
           alt="제3회 어흥콘 행사 안내"
-          className="min-h-0 w-full flex-1 object-contain object-top"
+          className="min-h-0 pt-[4rem] pb-[3rem] flex-1 object-contain object-top"
         />
 
         <button

@@ -67,3 +67,17 @@ body {
   height: calc(100vh - 4.15rem);
   height: calc(100dvh - 4.15rem);
 }
+
+@keyframes sheet-slide-up {
+  from {
+    transform: translateY(1.5rem);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.sheet-slide-up {
+  animation: sheet-slide-up 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
