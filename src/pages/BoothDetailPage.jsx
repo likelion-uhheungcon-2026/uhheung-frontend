@@ -82,7 +82,7 @@ export default function BoothDetailPage() {
         </div>
       </header>
 
-      <main className="scrollbar-hide min-h-0 flex-1 overflow-y-auto overscroll-contain pb-[max(2rem,env(safe-area-inset-bottom))]">
+      <main className="scrollbar-hide min-h-0 flex-1 overflow-y-auto overscroll-contain bg-black pb-[max(2rem,env(safe-area-inset-bottom))]">
         <MainCard booth={booth} variant="page" />
 
         <Links

@@ -222,6 +222,7 @@ export default function BoothDetail({ booth, sheetStage, setSheetStage }) {
           flex-1
           min-h-0
           w-full
+          bg-black
           overflow-y-auto
           overflow-x-hidden
           scrollbar-hide
