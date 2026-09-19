@@ -50,12 +50,16 @@ export default function MainCard({
       style={{
         touchAction: hasMultipleImages ? "pan-y" : undefined,
       }}
-      className={`relative isolate w-full shrink-0 rounded-[0.625rem] bg-black ${
+      className={`relative isolate w-full shrink-0 rounded-[0.625rem] ${
+        isPage ? "bg-transparent" : "bg-black"
+      } ${
         usesFourThreeRatio ? "aspect-[4/3]" : "h-[12.3125rem]"
       } ${hasMultipleImages ? "cursor-grab active:cursor-grabbing" : ""}`}
     >
       <div
-        className="absolute inset-0 overflow-hidden rounded-[0.625rem] bg-black"
+        className={`absolute inset-0 overflow-hidden rounded-[0.625rem] ${
+          isPage ? "bg-transparent" : "bg-black"
+        }`}
         style={{
           clipPath: "inset(0 round 0.625rem)",
           WebkitMaskImage: "-webkit-radial-gradient(white, black)",
@@ -68,7 +72,9 @@ export default function MainCard({
           {images.map((image, index) => (
             <div
               key={image}
-              className="h-full w-full shrink-0 overflow-hidden bg-black"
+              className={`h-full w-full shrink-0 overflow-hidden ${
+                isPage ? "bg-transparent" : "bg-black"
+              }`}
             >
               <img
                 src={image}
